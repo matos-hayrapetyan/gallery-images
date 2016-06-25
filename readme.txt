@@ -27,7 +27,7 @@ Install plugin and see the result of your creativeness.
 
 * **Fully responsive and Mobile features** - Gallery is fully responsive. With responsiveness, everyone will have access to the nicely designed everywhere and every time.
 
-* **Upload bundle of images** - Upload bunch of images using Images Manager, with one click insert images.
+* **Upload bundle of images** - Upload bunch of images using Images Manager, with one click insert images
 
 * **Order Change** - There are drag and drop option to change the order of the images.
 
