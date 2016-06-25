@@ -523,8 +523,8 @@ If you think, that you found a bug in our [WordPress Image Gallery](http://huge-
 * After creating your next step is to manage Custom Option
 * Gallery Name: Give a name
 * Select View: Choose among 7 incredible views to complete
-* Displaying Content: Select how to separate the gallery 
-* Ratings:Rate your gallery images/videos then activate Like/Dislike or Heart button
+* Displaying Content: Select how to separate
+* Ratings: Rate your images/videos then activate Like/Dislike or Heart button
 
 Usage:
 
@@ -613,7 +613,7 @@ Usage:
 * Title Font Size and Color: Set the font size and color for the title
 
 *   **Link Button**
-* Show Link Button and text:Click to show the link button in gallery or change its text
+* Show Link Button and text:Click to show the link button or change its text
 * Link Button Font Size and Color:  Change the font size and color of the link text 
 * Link Button Font Hover Color: Change the color for the link text
 * Link Button Background Color: Choose the color for link background 
@@ -660,17 +660,17 @@ Usage:
 * Pagination Position: Set the pagination position
 
 *   **Load More Styles**
-* Load More Text and Position:Write whatever you need in this field and in the gallery select the position of Load More
-* Load More Font Size and Color: For the gallery set the font size and color for the Load More 
+* Load More Text and Position: Write whatever you need in this field and in the gallery select the position of Load More
+* Load More Font Size and Color: Set the font size and color for the Load More 
 * Load More Font Hover Color: Select Load More font hover color
 * Load More Button Color and Background Hover Color: Change Load More button color and background hover color
-* Loading Animation 1: There are 4 types of animation for the gallery images/videos
+* Loading Animation 1: There are 4 types of animation
 
 = 2.4 Slider =
 
 *   **Slider**
-* Image Behavior: Choose resized if you need your gallery images have the size of the slider
-* Slider Background Color: Choose the color of background while gallery images have its natural size 
+* Image Behavior: Choose resized if you need your images have the size of the slider
+* Slider Background Color: Choose the color of background while images have its natural size 
 * Slider Border Size: Set the size of the slider borde
 * Slider Border Color:  Choose the color for the slider border
 * Slider Border-radius: Choose the radius for slider border
@@ -692,7 +692,7 @@ Usage:
 * Description Text Align: Select among 4 position for the image description  
 * Description Background Transparency: Set the level of transparency for the background of the description
 * Description Background Color: Choose the color for description background when to open your gallery images
-* Description Border Size and Color: Set the gallery size and color for the border in description 
+* Description Border Size and Color: Set the size and color for the border in description 
 * Description Border Radius: Set the radius of the description box corners
 * Description Position: Set the position of description
 
@@ -722,13 +722,13 @@ Usage:
 *   **Title**
 * Title Font Size: Set the title font size
 * Title Font Color: Choose the color of the title
-* Overlay Background Color: Choose the overlay color of the title of the gallery thumbnail
-* Title Background Transparency: For gallery title set the level of background transparency 
+* Overlay Background Color: Choose the overlay color of the title of the thumbnail
+* Title Background Transparency: Title set the level of background transparency 
 
 *   **Container Style**
 * Box Has background:  Click to have background for the thumbnail
-* Box background:  For the gallery set the color of surrounded box 
-* Box Use shadow:  Click if you need to have shadows in the box
+* Box background: Set the color of surrounded box 
+* Box Use shadow: Click if you need to have shadows in the box
 * Box padding: Set the distance between the box and images in thumbnail
 
 *   **Ratings Styles**
@@ -744,7 +744,7 @@ Usage:
 * Pagination Position: Set the pagination position
 
 *    **Load More Styles**
-* Load More Text and Position:Write whatever you need in this field and in the gallery select the position of Load More
+* Load More Text and Position:Write whatever you need in this field and select the position of Load More
 * Load More Font Size and Color: Set the font size and color for the Load More 
 * Load More Font Hover Color: Select Load More font hover color for images/videos
 * Load More Button Color and Background Hover Color: Change Load More button color  and background hover color
@@ -756,7 +756,7 @@ Usage:
 * Image height: Set the height of the images/videos in the tape 
 * Image margin: Set the distance between each image/video in the tape  
 * Image Justify: Select to make the width of all image up to 100% in a container. Together they will fit into the container of your theme, and tick off to bring each of them with its natural size
-* Image Randomize: Select to show your gallery images randomly 
+* Image Randomize: Select to show your images randomly 
 * Opening With Animation: Choose to see the tape of images/videos appearing animated 
 * Opening Animation Speed: Select the speed of the animation 
 
@@ -770,7 +770,7 @@ Usage:
 *  **Ratings Styles**
 * Show Ratings Count: Tick to show ratings count
 * Ratings Background Color and Transparency:Set ratings background color and its transparency
-* Ratings Font Color and Rated Font Color: For the gallery ratings set font colors 
+* Ratings Font Color and Rated Font Color: For the ratings set font colors 
 * Like/Dislike Icon Color and  Rated Icon Color:Set Like/Dislike icon color
 * Heart Icon Color and Rated Icon Color: Set Heart icon color
 
@@ -780,7 +780,7 @@ Usage:
 * Pagination Position: Set the pagination position
 
 *    **Load More Styles**
-* Load More Text and Position:Write whatever you need in this field and in the gallery select the position of Load More
+* Load More Text and Position:Write whatever you need in this field and select the position of Load More
 * Load More Font Size and Color: Set the font size and color for the Load More 
 * Load More Font Hover Color: Select Load More font hover color
 * Load More Button Color and Background Hover Color: Change Load More button color and background hover color
@@ -809,7 +809,7 @@ Usage:
 * Show Description: Select whether to see the description text or not 
 * Font Size and color: Change the font size and color for the description
 * Background Color: Change color for description background
-* Background Transparency: Adjust gallery image description background transparency level 
+* Background Transparency: Adjust description background transparency level 
 * Text Align: Choose the text to align for description
 
 *   **Ratings Styles**
@@ -858,8 +858,8 @@ The commercial version users can do unlimited customization, if your images/vide
 * Slideshow start and stop button text: Change the start and stop slideshow text
 
 *   **Positioning**
-* Fixed position: If you need the gallery lightbox to have fixed position just put check mark
-* Popup position. Choose from  9 position to open  the images in your gallery with lightbox
+* Fixed position: If you need the lightbox to have fixed position just put check mark
+* Popup position. Choose from 9 position to open  the images in your lightbox
 
 
 == Changelog ==
