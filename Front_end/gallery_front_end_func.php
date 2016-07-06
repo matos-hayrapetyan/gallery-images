@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 function showPublishedgallery_1($id)
 {
 	global $wpdb;

@@ -10,6 +10,8 @@ Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 function gallery_images_load_plugin_textdomain() {
     load_plugin_textdomain( 'gallery-images', FALSE, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 }
@@ -971,8 +973,8 @@ function huge_it_gallery_images_list_shotrcode($atts)
     wp_enqueue_style( 'style2-os-css' );
     wp_register_style( 'lightbox-css', plugins_url('/style/lightbox.css', __FILE__) );   
     wp_enqueue_style( 'lightbox-css' );
-    wp_register_style( 'fontawesome-css', plugins_url('/style/css/font-awesome.css', __FILE__) );   
-    wp_enqueue_style( 'fontawesome-css' );
+    wp_register_style( 'hugeiticons-css', plugins_url('/style/css/hugeiticons.css', __FILE__) );
+    wp_enqueue_style( 'hugeiticons-css' );
     
     return huge_it_gallery_images_list($atts['id']);
 }
