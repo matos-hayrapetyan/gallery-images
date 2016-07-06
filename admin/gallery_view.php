@@ -1,4 +1,5 @@
-<?php	
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if(function_exists('current_user_can'))
 //if(!current_user_can('manage_options')) {
     
