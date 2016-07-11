@@ -4,7 +4,7 @@ Donate link: http://huge-it.com/wordpress-gallery/
 Tags: gallery, image gallery, gallery image, lightbox gallery, wordpress gallery, photo gallery, content gallery, media gallery, youtube gallery, images gallery, responsive gallery, thumbnail gallery,
 Requires at least: 3.0.1
 Tested up to: 4.5.3
-Stable tag: 1.9.64
+Stable tag: 1.9.65
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -880,6 +880,9 @@ The commercial version users can do unlimited customization, if your images/vide
 
 
 == Changelog ==
+
+= 1.9.65 =
+*  Added credits and attribution in the source code refering the original authors.
 
 = 1.9.64 =
 *  Back end bug fixed.
