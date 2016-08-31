@@ -4,29 +4,6 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<script>
-    jQuery(document).ready(function () {
-        var strliID = jQuery(location).attr('hash');
-        jQuery('#gallery-view-tabs li').removeClass('active');
-        if (jQuery('#gallery-view-tabs li a[href="' + strliID + '"]').length > 0) {
-            jQuery('#gallery-view-tabs li a[href="' + strliID + '"]').parent().addClass('active');
-        } else {
-            jQuery('a[href="#gallery-view-options-0"]').parent().addClass('active');
-        }
-        strliID = strliID.split('#').join('.');
-        jQuery('#gallery-view-tabs-contents > li').removeClass('active');
-        if (jQuery(strliID).length > 0) {
-            jQuery(strliID).addClass('active');
-        } else {
-            jQuery('.gallery-view-options-0').addClass('active');
-        }
-        jQuery('input[data-slider="true"]').bind("slider:changed", function (event, data) {
-            jQuery(this).parent().find('span').html(parseInt(data.value) + "%");
-            jQuery(this).val(parseInt(data.value));
-        });
-    });
-</script>
-
 <div class="wrap">
     <?php require(GALLERY_IMG_TEMPLATES_PATH.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'gallery-img-admin-free-banner.php');?>
     <div>

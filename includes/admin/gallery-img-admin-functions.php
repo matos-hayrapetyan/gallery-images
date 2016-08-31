@@ -116,7 +116,7 @@ function gallery_img_get_gallery_id()
 {
     if (isset($_GET['page']) && $_GET['page'] == 'galleries_huge_it_gallery') {
         if (isset($_GET["id"])) {
-            $id = $_GET["id"];
+            $id = intval($_GET["id"]);
         } else {
             $id = 0;
         }
@@ -134,7 +134,7 @@ function gallery_img_get_gallery_task()
 {
     if (isset($_GET['page']) && $_GET['page'] == 'galleries_huge_it_gallery') {
         if (isset($_GET["task"])) {
-            $task = $_GET["task"];
+            $task = sanitize_text_field($_GET["task"]);
         } else {
             $task = '';
         }

@@ -2,14 +2,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-if (isset($_REQUEST['huge_it_gallery_nonce'])) {
-    $wp_nonce = $_REQUEST['huge_it_gallery_nonce'];
-    if (!wp_verify_nonce($wp_nonce, 'huge_it_gallery_nonce')) {
-        wp_die('Security check fail');
-    }
-}
 global $wpdb;
-$gallery_wp_nonce = wp_create_nonce('huge_it_gallery_nonce');
+$huge_it_gallery_nonce_add_gallery2 = wp_create_nonce('huge_it_gallery_nonce_add_gallery2');
+$huge_it_gallery_nonce_images_list = wp_create_nonce('huge_it_gallery_nonce_images_list');
+$gallery_wp_nonce_video = wp_create_nonce('gallery_wp_nonce_video');
+
 if (isset($_GET['id']) && $_GET['id'] != '') {
 	$id = intval($_GET['id']);
 }
@@ -22,123 +19,6 @@ if(isset($_GET["addslide"])){
 
 
 ?>
-<script type="text/javascript">
-	function submitbutton(pressbutton)
-	{
-		if(!document.getElementById('name').value){
-			alert("Name is required.");
-			return;
-
-		}
-		filterInputs();
-		document.getElementById("adminForm").action=document.getElementById("adminForm").action+"&task="+pressbutton;
-		document.getElementById("adminForm").submit();
-
-	}
-	var  name_changeRight = function(e) {
-		document.getElementById("name").value = e.value;
-	}
-	var  name_changeTop = function(e) {
-		document.getElementById("huge_it_gallery_name").value = e.value;
-		//alert(e);
-	};
-
-	function change_select()
-	{
-		submitbutton('apply');
-
-	}
-
-	/*** creating array of changed projects***/
-
-	function filterInputs() {
-
-		var mainInputs = "";
-
-		jQuery("#images-list > li.highlights").each(function(){
-			jQuery(this).next().addClass('submit-post');
-			jQuery(this).prev().addClass('submit-post');
-			jQuery(this).addClass('submit-post');
-			jQuery(this).removeClass('highlights');
-		})
-
-		if(jQuery("#images-list > li.submit-post").length) {
-
-			jQuery("#images-list > li.submit-post").each(function(){
-
-				var inputs = jQuery(this).find('.order_by').attr("name");
-				var n = inputs.lastIndexOf('_');
-				var res = inputs.substring(n+1, inputs.length);
-				res +=',';
-				mainInputs += res;
-
-			});
-
-			mainInputs = mainInputs.substring(0,mainInputs.length-1);
-
-
-			jQuery(".changedvalues").val(mainInputs);
-
-			jQuery("#images-list > li").not('.submit-post').each(function(){
-				jQuery(this).find('input').removeAttr('name');
-				jQuery(this).find('textarea').removeAttr('name');
-			});
-			console.log(mainInputs);
-			return mainInputs;
-
-		}
-		jQuery("#images-list > li").each(function(){
-			jQuery(this).find('input').removeAttr('name');
-			jQuery(this).find('textarea').removeAttr('name');
-			jQuery(this).find('select').removeAttr('name');
-		});
-	}
-	/***</add>***/
-	jQuery(function() {
-		/*** <posted only submit classes> ***/
-
-		jQuery( "#images-list > li input" ).on('keyup',function(){
-			jQuery(this).parents("#images-list > li").addClass('submit-post');
-		});
-		jQuery( "#images-list > li textarea" ).on('keyup',function(){
-			jQuery(this).parents("#images-list > li").addClass('submit-post');
-		});
-		jQuery( "#images-list > li input" ).on('change',function(){
-			jQuery(this).parents("#images-list > li").addClass('submit-post');
-		});
-		jQuery('.editimageicon').click(function(){
-			jQuery(this).parents("#images-list > li").addClass('submit-post');
-		})
-		/*** </posted only submit classes> ***/
-
-		jQuery( "#images-list" ).sortable({
-			stop: function() {
-				jQuery("#images-list > li").removeClass('has-background');
-				count=jQuery("#images-list > li").length;
-				for(var i=0;i<=count;i+=2){
-					jQuery("#images-list > li").eq(i).addClass("has-background");
-				}
-				jQuery("#images-list > li").each(function(){
-					jQuery(this).find('.order_by').val(jQuery(this).index());
-				});
-			},
-			change: function(event, ui) {
-				var start_pos = ui.item.data('start_pos');
-				var index = ui.placeholder.index();
-				if (start_pos < index) {
-					jQuery('#images-list > li:nth-child(' + index + ')').addClass('highlights');
-				} else {
-					jQuery('#images-list > li:eq(' + (index + 1) + ')').addClass('highlights');
-				}
-			},
-			update: function(event, ui) {
-				jQuery('#sortable li').removeClass('highlights');
-			},
-			revert: true
-		});
-	});
-</script>
-
 <!-- GENERAL PAGE, ADD IMAGES PAGE -->
 
 <div class="wrap">
@@ -157,7 +37,7 @@ if(isset($_GET["addslide"])){
 						if($rowsldires->id != $row->id){
 							?>
 							<li>
-								<a href="#" onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&task=edit_cat&id=<?php echo $rowsldires->id; ?>&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce; ?>'" ><?php echo $rowsldires->name; ?></a>
+								<a href="#" onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&task=edit_cat&id=<?php echo $rowsldires->id; ?>&huge_it_gallery_nonce_images_list=<?php echo $huge_it_gallery_nonce_images_list; ?>'" ><?php echo $rowsldires->name; ?></a>
 							</li>
 							<?php
 						}
@@ -170,7 +50,7 @@ if(isset($_GET["addslide"])){
 					}
 					?>
 					<li class="add-new">
-						<a onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&amp;task=add_cat&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce;?>'">+</a>
+						<a onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&amp;task=add_cat&huge_it_gallery_nonce_add_gallery2=<?php echo $huge_it_gallery_nonce_add_gallery2;?>'">+</a>
 					</li>
 				</ul>
 			</div>
@@ -237,7 +117,7 @@ if(isset($_GET["addslide"])){
 								<input type="button" class="button wp-media-buttons-icon" name="_unique_name_button" id="_unique_name_button" value="Add Image" />
 							</div>
 
-							<a href="admin.php?page=galleries_huge_it_gallery&task=gallery_video&id=<?php echo $id; ?>&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce; ?>&TB_iframe=1" class="button button-primary add-video-slide thickbox"  id="slideup3s" value="iframepop">
+							<a href="admin.php?page=galleries_huge_it_gallery&task=gallery_video&id=<?php echo $id; ?>&gallery_wp_nonce_video=<?php echo $gallery_wp_nonce_video; ?>&TB_iframe=1" class="button button-primary add-video-slide thickbox"  id="slideup3s" value="iframepop">
 								<span class="wp-media-buttons-icon"></span><?php echo __('Add Video', 'gallery-images'); ?>
 							</a>
 
@@ -569,64 +449,7 @@ if(isset($_GET["addslide"])){
 										<option <?php if($row->huge_it_sl_effects == '7'){ echo 'selected'; } ?>  value="7"><?php echo __('Blog Style Gallery', 'gallery-images'); ?></option>
 									</select>
 								</li>
-								<script>
-									jQuery(document).ready(function ($){
-										if($('select[name="display_type"]').val() == 2){
-											$('li[id="content_per_page"]').hide();
-										}else{
-											$('li[id="content_per_page"]').show();
-										}
-										$('select[name="display_type"]').on('change' ,function(){
-											if($(this).val() == 2){
-												$('li[id="content_per_page"]').hide();
-											}else{
-												$('li[id="content_per_page"]').show();
-											}
-										});
-
-										$('#gallery-unique-options').on('change',function(){
-											$( 'div[id^="gallery-current-options"]').each(function(){
-												if(!$(this).hasClass( "active" )){
-													$(this).find('ul li input[name="content_per_page"]').attr('name', '');
-													$(this).find('ul li select[name="display_type"]').attr('name', '');
-												}
-											});
-										});
-
-										$('#gallery-unique-options').on('change',function(){
-											$( 'div[id^="gallery-current-options"]').each(function(){
-												if($('#gallery-current-options-1').hasClass('active')  || $('#gallery-current-options-3').hasClass('active'))
-													$('li.for_slider').show();
-												else
-													$('li.for_slider').hide();
-											});
-										});
-										$('#gallery-unique-options').change();
-
-
-										$('#gallery-unique-options').on('change',function(){
-											$( 'div[id^="gallery-current-options"]').each(function(){
-												if(!$(this).hasClass( "active" )){
-													$(this).find('ul li input[name="sl_pausetime"]').attr('name', '');
-												}
-											});
-										});
-
-										$('#gallery-unique-options').on('change',function(){
-											$( 'div[id^="gallery-current-options"]').each(function(){
-												if(!$(this).hasClass( "active" )){
-													$(this).find('ul li input[name="sl_changespeed"]').attr('name', '');
-												}
-											});
-										});
-
-
-
-
-
-									});
-								</script>
-								<div id="gallery-current-options-0" class="gallery-current-options <?php if($row->huge_it_sl_effects == 0){ echo ' active'; }  ?>">
+							<div id="gallery-current-options-0" class="gallery-current-options <?php if($row->huge_it_sl_effects == 0){ echo ' active'; }  ?>">
 									<ul id="view7">
 
 										<li>
@@ -815,7 +638,6 @@ if(isset($_GET["addslide"])){
 									<input type="button" onclick="submitbutton('apply')" value="Save gallery" id="save-buttom" class="button button-primary button-large">
 								</div>
 								<div class="clear"></div>
-								<!--<input type="button" onclick="window.location.href='admin.php?page=galleries_huge_it_gallery'" value="Cancel" class="button-secondary action">-->
 							</div>
 						</div>
 						<div id="gallery-shortcode-box" class="postbox shortcode ms-toggle">
@@ -839,7 +661,7 @@ if(isset($_GET["addslide"])){
 				</div>
 			</div>
 		</div>
-        <?php echo wp_nonce_field('huge_it_gallery_nonce','huge_it_gallery_nonce')?>
+        <?php echo wp_nonce_field('huge_it_gallery_nonce_save_data','huge_it_gallery_nonce_save_data')?>
 		<input type="hidden" name="task" value="" />
 	</form>
 </div>

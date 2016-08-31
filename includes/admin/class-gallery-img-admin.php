@@ -88,8 +88,20 @@ class Gallery_Img_Admin
 
     public function wp_loaded()
     {
+		if (isset($_REQUEST['gallery_wp_nonce_add_gallery'])) {
+			$wp_nonce1 = $_REQUEST['gallery_wp_nonce_add_gallery'];
+			if (!wp_verify_nonce($wp_nonce1, 'gallery_wp_nonce_add_gallery')) {
+				wp_die('Security check fail');
+			}
+		}
+		if (isset($_REQUEST['huge_it_gallery_nonce_add_gallery2'])) {
+			$wp_nonce2 = $_REQUEST['huge_it_gallery_nonce_add_gallery2'];
+			if (!wp_verify_nonce($wp_nonce2, 'huge_it_gallery_nonce_add_gallery2')) {
+				wp_die('Security check fail');
+			}
+		}
         global $wpdb;
-        if (isset($_GET['task'])) {
+        if (isset($_GET['task']) && $_GET['page'] == 'galleries_huge_it_gallery') {
             $task = $_GET['task'];
             if ($task == 'add_cat') {
                 $table_name = $wpdb->prefix . "huge_itgallery_gallerys";
@@ -101,16 +113,9 @@ INSERT INTO
                 $query = "SELECT * FROM " . $wpdb->prefix . "huge_itgallery_gallerys order by id ASC";
                 $rowsldcc = $wpdb->get_results($query);
                 $last_key = key(array_slice($rowsldcc, -1, 1, TRUE));
-
-
-                foreach ($rowsldcc as $key => $rowsldccs) {
+				foreach ($rowsldcc as $key => $rowsldccs) {
                     if ($last_key == $key) {
-                        $gallery_wp_nonce = wp_create_nonce('huge_it_gallery_nonce');
-                        $wp_nonce = $_GET['huge_it_gallery_nonce'];
-                        if (!wp_verify_nonce($wp_nonce, 'huge_it_gallery_nonce') && !wp_verify_nonce($wp_nonce, 'huge_it_gallery_nonce')) {
-                            wp_die('Security check fail');
-                        }
-                        header('Location: admin.php?page=galleries_huge_it_gallery&id=' . $rowsldccs->id . '&task=apply&huge_it_gallery_nonce='.$gallery_wp_nonce);
+                        header('Location: admin.php?page=galleries_huge_it_gallery&id=' . $rowsldccs->id . '&task=apply');
                     }
                 }
             }

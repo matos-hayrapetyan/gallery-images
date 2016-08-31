@@ -132,13 +132,10 @@ function ratingClick(e) {
         if (resStatus == 'unliked') {
             jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.likeheart').addClass('like_thumb_active');
             jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.huge_it_like_thumb').addClass('like_font_active');
-            //jQuery("span.huge_it_like_thumb[id='"+image_id+"']").attr('data-status','liked')
-        } else if (resStatus == 'liked') {
+		} else if (resStatus == 'liked') {
             jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.likeheart').removeClass('like_thumb_active').addClass('likeheart');
             jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.huge_it_like_thumb').removeClass('like_font_active');
-            //jQuery("span.huge_it_like_thumb[id='"+image_id+"']").attr('data-status','unliked')
-            //delCookie('Like_'+image_id);
-        }
+		}
     }
     /////////////////////////////
     if (resStatus2 == undefined) {
@@ -210,8 +207,7 @@ function ratingClick(e) {
             }
             if (response.dislike < 0)response.dislike = 0;
             jQuery("span.huge_it_dislike_count[id='" + image_id + "']").text(response.dislike);
-            //jQuery("span.huge_it_dislike_thumb[id='"+image_id+"']").text(response.statDislike);
-            if (ratingType == 'heart') {
+			if (ratingType == 'heart') {
                 if (response.statLike == 'Liked') {
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.likeheart').addClass('like_thumb_active');
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.huge_it_like_thumb').addClass('like_font_active');

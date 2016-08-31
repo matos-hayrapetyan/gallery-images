@@ -331,7 +331,7 @@ function gallery_img_get_general_options()
         'ht_thumb_likedislike_thumb_active_color' => 'E65010',
         'ht_thumb_likedislike_font_color' => 'E6E6E6',
         'ht_thumb_active_font_color' => 'FFFFFF',
-        'ht_just_rating_count' => 'off',
+        'ht_just_rating_count' => 'on',
         'ht_just_likedislike_bg' => 'FFFFFF',
         'ht_just_likedislike_bg_trans' => '0',
         'ht_just_likedislike_thumb_color' => 'FFFFFF',

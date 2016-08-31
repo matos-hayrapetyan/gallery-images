@@ -6,12 +6,7 @@ if (!defined('ABSPATH')) {
 class Gallery_Img_Galleries
 {
 
-    public function __construct()
-    {
-
-    }
-
-    /**
+	/**
      * Load Gallerys admin page
      */
     public function load_gallery_page()
@@ -19,13 +14,16 @@ class Gallery_Img_Galleries
         global $wpdb;
         if (isset($_GET['page']) && $_GET['page'] == 'galleries_huge_it_gallery') {
             $task = gallery_img_get_gallery_task();
-            if ($task == 'edit_cat') {
-                $this->edit_gallery(gallery_img_get_gallery_id());
-            }
-            $id = gallery_img_get_gallery_id();
+			$id = gallery_img_get_gallery_id();
         }
         switch ($task) {
             case 'gallery_video':
+				if (isset($_REQUEST['gallery_wp_nonce_video'])) {
+					$wp_nonce = $_GET['gallery_wp_nonce_video'];
+					if (!wp_verify_nonce($wp_nonce, 'gallery_wp_nonce_video')) {
+						wp_die('Security check fail');
+					}
+				}
                 if ($id) {
                     $this->insert_gallery_img_video($id);
                 } else {
@@ -34,7 +32,19 @@ class Gallery_Img_Galleries
                 }
                 break;
             case 'edit_cat':
-                if ($id) {
+				if (isset($_REQUEST['huge_it_gallery_nonce_galleries'])) {
+					$wp_nonce = $_REQUEST['huge_it_gallery_nonce_galleries'];
+					if (!wp_verify_nonce($wp_nonce, 'huge_it_gallery_nonce_galleries')) {
+						wp_die('Security check fail');
+					}
+				}
+				if (isset($_REQUEST['huge_it_gallery_nonce_images_list'])) {
+					$wp_nonce = $_REQUEST['huge_it_gallery_nonce_images_list'];
+					if (!wp_verify_nonce($wp_nonce, 'huge_it_gallery_nonce_images_list')) {
+						wp_die('Security check fail');
+					}
+				}
+				if ($id) {
                     $this->edit_gallery($id);
                 } else {
                     $id = $wpdb->get_var("SELECT MAX( id ) FROM " . $wpdb->prefix . "huge_itgallery_gallerys");
@@ -47,6 +57,12 @@ class Gallery_Img_Galleries
                 }
                 break;
             case 'apply':
+				if (isset($_REQUEST['huge_it_gallery_nonce_save_data'])) {
+					$wp_nonce = $_REQUEST['huge_it_gallery_nonce_save_data'];
+					if (!wp_verify_nonce($wp_nonce, 'huge_it_gallery_nonce_save_data')) {
+						wp_die('Security check fail');
+					}
+				}
                 if ($id) {
                     $this->save_gallery_data($id);
                     $this->edit_gallery($id);
@@ -118,8 +134,7 @@ GROUP BY " . $wpdb->prefix . "huge_itgallery_images.gallery_id ";
     public function edit_gallery($id)
     {
         global $wpdb;
-
-        if (isset($_POST["huge_it_sl_effects"])) {
+		if (isset($_POST["huge_it_sl_effects"])) {
             if (isset($_GET["removeslide"])) {
                 if ($_GET["removeslide"] != '') {
                     $idfordelete = $_GET["removeslide"];
@@ -152,14 +167,6 @@ INSERT INTO
         }
         $query = "SELECT * FROM " . $wpdb->prefix . "huge_itgallery_gallerys order by id ASC";
         $rowsld = $wpdb->get_results($query);
-        $query = "SELECT *  from " . $wpdb->prefix . "huge_itgallery_params ";
-        $rowspar = $wpdb->get_results($query);
-        $paramssld = array();
-        foreach ($rowspar as $rowpar) {
-            $key = $rowpar->name;
-            $value = $rowpar->value;
-            $paramssld[$key] = $value;
-        }
         $query = "SELECT * FROM " . $wpdb->prefix . "posts where post_type = 'post' and post_status = 'publish' order by id ASC";
         $rowsposts = $wpdb->get_results($query);
         $rowsposts8 = '';
@@ -236,24 +243,13 @@ INSERT INTO
         }
         $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_gallerys WHERE id = %d", $id);
         $row = $wpdb->get_row($query);
-        /***<image optimize>***/
-        $query = "SELECT * FROM " . $wpdb->prefix . "huge_itgallery_params";
-        $rowspar = $wpdb->get_results($query);
-        $paramssld = array();
-        foreach ($rowspar as $rowpar) {
-            $key = $rowpar->name;
-            $value = $rowpar->value;
-            $paramssld[$key] = $value;
-        }
-
-        /***</image optimize>***/
+        
         if (isset($_POST['changedvalues']) && $_POST['changedvalues'] != '') {
 
             $changedValues = preg_replace('#[^0-9,]+#', '', $_POST['changedvalues']);
             $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = %d  AND id in (" . $changedValues . ")  order by id ASC", $row->id);
             $rowim = $wpdb->get_results($query);
-            //  var_dump( $rowim);
-            foreach ($rowim as $key => $rowimages) {
+			foreach ($rowim as $key => $rowimages) {
                 $orderBy = sanitize_text_field($_POST["order_by_" . $rowimages->id]);
                 $linkTaret = sanitize_text_field($_POST["sl_link_target" . $rowimages->id]);
                 $slUrl = sanitize_text_field(str_replace('%', '__5_5_5__', $_POST["sl_url" . $rowimages->id]));
@@ -282,16 +278,6 @@ INSERT INTO
                     $wpdb->query($wpdb->prepare("UPDATE " . $wpdb->prefix . "huge_itgallery_images SET  image_url = '%s'  WHERE ID = %d ", $imageUrl, $rowimages->id));
                     $wpdb->query($wpdb->prepare("UPDATE " . $wpdb->prefix . "huge_itgallery_images SET  `like` = %d  WHERE ID = %d ", $like, $rowimages->id));
                 }
-            }
-        }
-        if (isset($_POST['params'])) {
-            $params = $_POST['params'];
-            foreach ($params as $key => $value) {
-                $wpdb->update($wpdb->prefix . 'huge_itgallery_params',
-                    array('value' => $value),
-                    array('name' => $key),
-                    array('%s')
-                );
             }
         }
         if (isset($_POST["imagess"])) {

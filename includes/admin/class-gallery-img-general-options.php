@@ -37,7 +37,6 @@ class Gallery_Img_General_Options
 
     /**
      * Save General Options
-     * //@todo: get rid of foreach
      */
     public function save_options()
     {

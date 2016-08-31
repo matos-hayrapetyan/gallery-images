@@ -36,9 +36,6 @@ class Gallery_Img_Admin_Assets {
 		}
 	}
 
-	public function localize_scripts(){
-
-	}
 }
 
 new Gallery_Img_Admin_Assets();

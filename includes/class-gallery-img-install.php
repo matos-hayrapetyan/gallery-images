@@ -167,21 +167,12 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
                 $wpdb->query($wpdb->prepare("UPDATE " . $table_name . " SET image_url= %s WHERE id=%d", $new_url, $image_url->id));
             }
         }
-
-        $query = "SELECT name,value FROM " . $wpdb->prefix . "huge_itgallery_params";
-        $gallery_table_params = $wpdb->get_results($query);
-        $gallery_default_params = gallery_img_get_general_options();
 		
-		if(!(get_option('ht_blog_heart_likedislike_thumb_active_color'))){
-			if (count($gallery_table_params) > 0) {
-				foreach ($gallery_table_params as $gallery_table_param) {
-					update_option($gallery_table_param->name, $gallery_table_param->value);
-				}
-			} else {
-				foreach ($gallery_default_params as $name => $value) {
+		$gallery_default_params = gallery_img_get_general_options();
+        if(!(get_option('ht_blog_heart_likedislike_thumb_active_color'))){
+			foreach ($gallery_default_params as $name => $value) {
 					update_option($name, $value);
 				}
-			}
 		}
     }
 }

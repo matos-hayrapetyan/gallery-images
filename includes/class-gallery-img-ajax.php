@@ -19,11 +19,11 @@ class Gallery_Img_Ajax
             global $huge_it_ip;
             $page = 1;
             if (!empty($_POST["page"]) && is_numeric($_POST['page']) && $_POST['page'] > 0) {
-                $page = $_POST["page"];
-                $num = $_POST['perpage'];
+                $page = intval($_POST["page"]);
+                $num = intval($_POST['perpage']);
                 $start = $page * $num - $num;
-                $idofgallery = $_POST['galleryid'];
-                $pID = $_POST['pID'];
+                $idofgallery = intval($_POST['galleryid']);
+                $pID = intval($_POST['pID']);
                 $likeStyle = $_POST['likeStyle'];
                 $ratingCount = $_POST['ratingCount'];
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
@@ -193,11 +193,11 @@ class Gallery_Img_Ajax
             global $huge_it_ip;
             $page = 1;
             if (!empty($_POST["page"]) && is_numeric($_POST['page']) && $_POST['page'] > 0) {
-                $page = $_POST["page"];
-                $num = $_POST['perpage'];
+                $page = intval($_POST["page"]);
+                $num = intval($_POST["perpage"]);
                 $start = $page * $num - $num;
-                $idofgallery = $_POST['galleryid'];
-                $pID = $_POST['pID'];
+                $idofgallery = intval($_POST["galleryid"]);
+                $pID = intval($_POST["pID"]);
                 $likeStyle = $_POST['likeStyle'];
                 $ratingCount = $_POST['ratingCount'];
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
@@ -370,11 +370,11 @@ class Gallery_Img_Ajax
             global $huge_it_ip;
             $page = 1;
             if (!empty($_POST["page"]) && is_numeric($_POST['page']) && $_POST['page'] > 0) {
-                $page = $_POST["page"];
-                $num = $_POST['perpage'];
+                $page = intval($_POST["page"]);
+                $num = intval($_POST["perpage"]);
                 $start = $page * $num - $num;
-                $idofgallery = $_POST['galleryid'];
-                $pID = $_POST['pID'];
+                $idofgallery = intval($_POST["galleryid"]);
+                $pID = intval($_POST["pID"]);
                 $likeStyle = $_POST['likeStyle'];
                 $ratingCount = $_POST['ratingCount'];
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
@@ -513,11 +513,11 @@ class Gallery_Img_Ajax
             global $huge_it_ip;
             $page = 1;
             if (!empty($_POST["page"]) && is_numeric($_POST['page']) && $_POST['page'] > 0) {
-                $page = $_POST["page"];
-                $num = $_POST['perpage'];
+                $page = intval($_POST["page"]);
+                $num = intval($_POST["perpage"]);
                 $start = $page * $num - $num;
-                $idofgallery = $_POST['galleryid'];
-                $pID = $_POST['pID'];
+                $idofgallery = intval($_POST["galleryid"]);
+                $pID = intval($_POST["pID"]);
                 $likeStyle = $_POST['likeStyle'];
                 $ratingCount = $_POST['ratingCount'];
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
@@ -659,11 +659,11 @@ class Gallery_Img_Ajax
             global $huge_it_ip;
             $page = 1;
             if (!empty($_POST["page"]) && is_numeric($_POST['page']) && $_POST['page'] > 0) {
-                $page = $_POST["page"];
-                $num = $_POST['perpage'];
+                $page = intval($_POST["page"]);
+                $num = intval($_POST["perpage"]);
                 $start = $page * $num - $num;
-                $idofgallery = $_POST['galleryid'];
-                $pID = $_POST['pID'];
+                $idofgallery = intval($_POST["galleryid"]);
+                $pID = intval($_POST["pID"]);
                 $likeStyle = $_POST['likeStyle'];
                 $ratingCount = $_POST['ratingCount'];
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);

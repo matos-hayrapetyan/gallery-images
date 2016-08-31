@@ -3,44 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 global $wpdb;
-$gallery_wp_nonce = wp_create_nonce('huge_it_gallery_nonce');
+$gallery_wp_nonce_add_gallery = wp_create_nonce('gallery_wp_nonce_add_gallery');
+$huge_it_gallery_nonce_galleries = wp_create_nonce('huge_it_gallery_nonce_galleries');
 ?>
-
-<script language="javascript">
-	function ordering(name,as_or_desc)
-	{
-		document.getElementById('asc_or_desc').value=as_or_desc;
-		document.getElementById('order_by').value=name;
-		document.getElementById('admin_form').submit();
-	}
-	function saveorder()
-	{
-		document.getElementById('saveorder').value="save";
-		document.getElementById('admin_form').submit();
-
-	}
-	function listItemTask(this_id,replace_id)
-	{
-		document.getElementById('oreder_move').value=this_id+","+replace_id;
-		document.getElementById('admin_form').submit();
-	}
-	function doNothing() {
-		var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
-		if( keyCode == 13 ) {
-
-
-			if(!e) var e = window.event;
-
-			e.cancelBubble = true;
-			e.returnValue = false;
-
-			if (e.stopPropagation) {
-				e.stopPropagation();
-				e.preventDefault();
-			}
-		}
-	}
-</script>
 
 <div class="wrap">
 	<?php require(GALLERY_IMG_TEMPLATES_PATH.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'gallery-img-admin-free-banner.php');?>
@@ -50,7 +15,7 @@ $gallery_wp_nonce = wp_create_nonce('huge_it_gallery_nonce');
 		<div id="gallerys-list-page">
 			<form method="post"  onkeypress="doNothing()" action="admin.php?page=galleries_huge_it_gallery" id="admin_form" name="admin_form">
 				<h2>Huge-IT <?php echo __('Galleries', 'gallery-images'); ?>
-					<a onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&task=add_cat&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce; ?>'" class="add-new-h2" ><?php echo __('Add New Gallery', 'gallery-images'); ?></a>
+					<a onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&task=add_cat&gallery_wp_nonce_add_gallery=<?php echo $gallery_wp_nonce_add_gallery; ?>'" class="add-new-h2" ><?php echo __('Add New Gallery', 'gallery-images'); ?></a>
 				</h2>
 				<?php
 				$serch_value='';
@@ -153,7 +118,7 @@ $gallery_wp_nonce = wp_create_nonce('huge_it_gallery_nonce');
 						?>
 						<tr <?php if($trcount%2==0){ echo 'class="has-background"';}?>>
 							<td><?php echo $rows[$i]->id; ?></td>
-							<td><a  href="admin.php?page=galleries_huge_it_gallery&task=edit_cat&id=<?php echo $rows[$i]->id?>&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce; ?>"><?php echo esc_html(stripslashes($rows[$i]->name)); ?></a></td>
+							<td><a  href="admin.php?page=galleries_huge_it_gallery&task=edit_cat&id=<?php echo $rows[$i]->id?>&huge_it_gallery_nonce_galleries=<?php echo $huge_it_gallery_nonce_galleries; ?>"><?php echo esc_html(stripslashes($rows[$i]->name)); ?></a></td>
 							<td>(<?php if(!($pr_count)){echo '0';} else{ echo $rows[$i]->prod_count;} ?>)</td>
 							<td><a  href="admin.php?page=galleries_huge_it_gallery&task=remove_cat&id=<?php echo $rows[$i]->id; ?>"><?php echo __('Delete', 'gallery-images'); ?></a></td>
 						</tr>
@@ -174,11 +139,3 @@ $gallery_wp_nonce = wp_create_nonce('huge_it_gallery_nonce');
 		</div>
 	</div>
 </div>
-<script>
-	jQuery(document).ready(function(){
-		jQuery('a[href*="remove_cat"]').click(function(){
-			if(!confirm('Are you sure you want to delete this item?'))
-				return false;
-		});
-	});
-</script>

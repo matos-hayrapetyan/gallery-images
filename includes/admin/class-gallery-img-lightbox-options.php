@@ -33,8 +33,7 @@ class Gallery_Img_Lightbox_Options {
 
 	/**
 	 * Save Lightbox Options
-	 * //@todo: get rid of foreach
-	 */
+	*/
 	public function save_options() {
 		if (isset($_POST['params'])) {
 			$params = $_POST['params'];
