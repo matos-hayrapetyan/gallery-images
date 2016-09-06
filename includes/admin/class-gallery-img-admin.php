@@ -94,12 +94,6 @@ class Gallery_Img_Admin
 				wp_die('Security check fail');
 			}
 		}
-		if (isset($_REQUEST['huge_it_gallery_nonce_add_gallery2'])) {
-			$wp_nonce2 = $_REQUEST['huge_it_gallery_nonce_add_gallery2'];
-			if (!wp_verify_nonce($wp_nonce2, 'huge_it_gallery_nonce_add_gallery2')) {
-				wp_die('Security check fail');
-			}
-		}
         global $wpdb;
         if (isset($_GET['task']) && $_GET['page'] == 'galleries_huge_it_gallery') {
             $task = $_GET['task'];

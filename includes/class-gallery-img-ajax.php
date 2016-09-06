@@ -24,8 +24,8 @@ class Gallery_Img_Ajax
                 $start = $page * $num - $num;
                 $idofgallery = intval($_POST['galleryid']);
                 $pID = intval($_POST['pID']);
-                $likeStyle = $_POST['likeStyle'];
-                $ratingCount = $_POST['ratingCount'];
+                $likeStyle = esc_html($_POST['likeStyle']);
+                $ratingCount = esc_html($_POST['ratingCount']);
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $page_images = $wpdb->get_results($query);
                 $output = '';
@@ -198,8 +198,8 @@ class Gallery_Img_Ajax
                 $start = $page * $num - $num;
                 $idofgallery = intval($_POST["galleryid"]);
                 $pID = intval($_POST["pID"]);
-                $likeStyle = $_POST['likeStyle'];
-                $ratingCount = $_POST['ratingCount'];
+                $likeStyle = esc_html($_POST['likeStyle']);
+                $ratingCount = esc_html($_POST['ratingCount']);
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $page_images = $wpdb->get_results($query);
                 $output = '';
@@ -375,8 +375,8 @@ class Gallery_Img_Ajax
                 $start = $page * $num - $num;
                 $idofgallery = intval($_POST["galleryid"]);
                 $pID = intval($_POST["pID"]);
-                $likeStyle = $_POST['likeStyle'];
-                $ratingCount = $_POST['ratingCount'];
+                $likeStyle = esc_html($_POST['likeStyle']);
+                $ratingCount = esc_html($_POST['ratingCount']);
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $output = '';
                 $page_images = $wpdb->get_results($query);
@@ -518,8 +518,8 @@ class Gallery_Img_Ajax
                 $start = $page * $num - $num;
                 $idofgallery = intval($_POST["galleryid"]);
                 $pID = intval($_POST["pID"]);
-                $likeStyle = $_POST['likeStyle'];
-                $ratingCount = $_POST['ratingCount'];
+                $likeStyle = esc_html($_POST['likeStyle']);
+                $ratingCount = esc_html($_POST['ratingCount']);
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $output = '';
                 $page_images = $wpdb->get_results($query);
@@ -664,8 +664,8 @@ class Gallery_Img_Ajax
                 $start = $page * $num - $num;
                 $idofgallery = intval($_POST["galleryid"]);
                 $pID = intval($_POST["pID"]);
-                $likeStyle = $_POST['likeStyle'];
-                $ratingCount = $_POST['ratingCount'];
+                $likeStyle = esc_html($_POST['likeStyle']);
+                $ratingCount = esc_html($_POST['ratingCount']);
                 $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $output = '';
                 $page_images = $wpdb->get_results($query);
@@ -688,6 +688,7 @@ class Gallery_Img_Ajax
                     $img_desc = str_replace('__5_5_5__', '%', $row->description);
                     $videourl = gallery_img_get_video_id_from_url($row->image_url);
                     $imagerowstype = $row->sl_type;
+                    $img3video = '';
                     if ($imagerowstype == '') {
                         $imagerowstype = 'image';
                     }
@@ -699,8 +700,6 @@ class Gallery_Img_Ajax
                                         <iframe class="video_blog_view" src="//www.youtube.com/embed/' . $videourl[0] . '" style="border: 0;" allowfullscreen></iframe>
                                     </div>';
                         } else {
-                            // $hash = unserialize(wp_remote_fopen("http://vimeo.com/api/v2/video/".$videourl[0].".php"));
-                            //   $imgsrc=$hash[0]['thumbnail_large'];
                             $img3video .= '<div class="iframe_cont">
                                                 <iframe class="video_blog_view" src="//player.vimeo.com/video/' . $videourl[0] . '" style="border: 0;" allowfullscreen></iframe>
                                             </div>';

@@ -178,7 +178,7 @@ if ( ! class_exists( 'Gallery_Img' ) ) :
          * Load plugin text domain
          */
         public function load_plugin_textdomain(){
-            load_plugin_textdomain( 'gallery-images', false, $this->plugin_path() . '/languages/' );
+            load_plugin_textdomain( 'gallery-img', false, $this->plugin_path() . '/languages/' );
         }
 
         /**
