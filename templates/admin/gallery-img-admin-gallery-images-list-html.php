@@ -69,7 +69,7 @@ if ( isset( $_GET["addslide"] ) ) {
 
 					<div id="post-body">
 						<div id="post-body-heading">
-							<h3><?php echo __( 'Images/Videos', 'gallery-images' ); ?></h3>
+							<h3><?php echo __( 'Images', 'gallery-images' ); ?></h3>
 							<input type="hidden" name="imagess" id="_unique_name"/>
 							<span class="wp-media-buttons-icon"></span>
 							<div class="huge-it-newuploader uploader button button-primary add-new-image">
@@ -89,8 +89,9 @@ if ( isset( $_GET["addslide"] ) ) {
 							$i = 2;
 							foreach ( $rowim as $key => $rowimages ) { ?>
 								<?php if ( $rowimages->sl_type == '' ) {
-									$rowimages->sl_type = 'image';
+									$rowimages->sl_type         = 'image';
 								}
+								$gallery_nonce_remove_image = wp_create_nonce( 'gallery_nonce_remove_image' . $rowimages->id );
 								switch ( $rowimages->sl_type ) {
 									case 'image': ?>
 										<li <?php if ( $i % 2 == 0 ) {
@@ -158,6 +159,7 @@ if ( isset( $_GET["addslide"] ) ) {
 												<div class="remove-image-container">
 													<a id="remove_image<?php echo $rowimages->id; ?>"
 													   class="button remove-image"
+													   data-nonce-value="<?php echo $gallery_nonce_remove_image; ?>"
 													   data-image-id="<?php echo $rowimages->id; ?>"
 													   data-gallery-id="<?php echo $row->id; ?>">Remove Image</a>
 												</div>

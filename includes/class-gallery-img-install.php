@@ -23,7 +23,16 @@ class Gallery_Img_Install
 
     private static function create_tables()
     {
+
         global $wpdb;
+	    $query = "SHOW GLOBAL VARIABLES LIKE 'storage_engine'";
+	    $engine =$wpdb->get_results($query);
+	    $db_engine = "ENGINE=".$engine[0]->Value." ";
+	    $collate = '';
+	    if ( $wpdb->has_cap( 'collation' ) ) {
+		    $collate = $wpdb->get_charset_collate();
+	    }
+
 /// creat database tables
 		$sql_huge_itgallery_images = "
 CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itgallery_images` (
@@ -40,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itgallery_images` (
   `published_in_sl_width` tinyint(4) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-)   DEFAULT CHARSET=utf8 AUTO_INCREMENT=5";
+)   ".$db_engine.$collate." AUTO_INCREMENT=5";
         $sql_huge_itgallery_like_dislike = "
 CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itgallery_like_dislike` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itgallery_like_dislike` (
   `cook` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) DEFAULT CHARSET=utf8 AUTO_INCREMENT=10";
+) ".$db_engine.$collate." AUTO_INCREMENT=10";
         $sql_huge_itgallery_gallerys = "
 CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itgallery_gallerys` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -67,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itgallery_gallerys` (
    `huge_it_sl_effects` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-)   DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ";
+)  ".$db_engine.$collate." AUTO_INCREMENT=2 ";
                
         $table_name = $wpdb->prefix . "huge_itgallery_images";
         $sql_2 = "

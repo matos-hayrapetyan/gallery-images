@@ -23,6 +23,7 @@ function Gallery_Img_Thumbnails(id) {
         _this.loadMoreBtn.on('click', _this.loadMoreBtnClick);
     };
     _this.loadMoreBtnClick = function () {
+        var thumbnailLoadNonce = jQuery(this).attr('data-thumbnail-nonce-value');
         if (parseInt(_this.content.find(".pagenum:last").val()) < parseInt(_this.container.find("#total").val())) {
             var pagenum = parseInt(_this.content.find(".pagenum:last").val()) + 1;
             var perpage = gallery_obj[0].content_per_page;
@@ -31,13 +32,13 @@ function Gallery_Img_Thumbnails(id) {
             var pID = postID;
             var likeStyle = _this.ratingType;
             var ratingCount = param_obj.ht_lightbox_rating_count;
-            _this.getResult(pagenum, perpage, galleryid, thumbtext, pID, likeStyle, ratingCount);
+            _this.getResult(pagenum, perpage, galleryid, thumbtext, pID, likeStyle, ratingCount, thumbnailLoadNonce);
         } else {
             _this.loadMoreBtn.hide();
         }
         return false;
     };
-    _this.getResult = function (pagenum, perpage, galleryid, thumbtext, pID, likeStyle, ratingCount) {
+    _this.getResult = function (pagenum, perpage, galleryid, thumbtext, pID, likeStyle, ratingCount, thumbnailLoadNonce) {
         var data = {
             action: "huge_it_gallery_ajax",
             task: 'load_image_thumbnail',
@@ -47,7 +48,8 @@ function Gallery_Img_Thumbnails(id) {
             thumbtext: thumbtext,
             pID: pID,
             likeStyle: likeStyle,
-            ratingCount: ratingCount
+            ratingCount: ratingCount,
+            galleryImgThumbnailLoadNonce: thumbnailLoadNonce
         };
         _this.loadingIcon.show();
         _this.loadMoreBtn.hide();

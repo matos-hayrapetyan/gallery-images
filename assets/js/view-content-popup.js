@@ -27,9 +27,9 @@ function Gallery_Img_Content_Popup(id) {
     _this.loadingIcon = _this.content.find('.loading5');
 
     _this.documentReady = function () {
-        var options =  {
+        var options = {
             itemSelector: _this.element,
-                masonry: {
+            masonry: {
                 columnWidth: _this.defaultBlockWidth + 20 + param_obj.ht_view2_element_border_width * 2,
             },
             masonryHorizontal: {
@@ -37,11 +37,11 @@ function Gallery_Img_Content_Popup(id) {
             },
             cellsByRow: {
                 columnWidth: 300 + 20,
-                    rowHeight: 240
+                rowHeight: 240
             },
             cellsByColumn: {
                 columnWidth: 300 + 20,
-                    rowHeight: 240
+                rowHeight: 240
             },
             getSortData: {
                 symbol: function ($elem) {
@@ -61,9 +61,9 @@ function Gallery_Img_Content_Popup(id) {
                 }
             }
         };
-        galleryImgIsotope(_this.container.children(),options);
-        ratingCountsOptimize(_this.container,_this.ratingType);
-        ratingCountsOptimize(_this.popupList,_this.ratingType);
+        galleryImgIsotope(_this.container.children(), options);
+        ratingCountsOptimize(_this.container, _this.ratingType);
+        ratingCountsOptimize(_this.popupList, _this.ratingType);
     };
     _this.showCenter = function () {
         if (_this.isCentered) {
@@ -84,10 +84,10 @@ function Gallery_Img_Content_Popup(id) {
                 "margin": "0px auto",
                 "overflow": "hidden"
             });
-            setInterval(function () {
-                galleryImgIsotope(_this.container.children(),'reLayout');
-
-            });
+            var loadInterval = setInterval(function(){
+                galleryImgIsotope(_this.container.children(), 'reLayout');
+            },100);
+            setTimeout(function(){clearInterval(loadInterval);},7000);
         }
     };
 
@@ -240,7 +240,7 @@ function Gallery_Img_Content_Popup(id) {
     _this.resizeEvent = function () {
         var iframeHeight = _this.popupList.find('.popup-wrapper .image-block').width() * 0.5;
         _this.popupList.find('.popup-wrapper .image-block iframe').height(iframeHeight);
-        galleryImgIsotope(_this.container.children(),'reLayout');
+        galleryImgIsotope(_this.container.children(), 'reLayout');
         _this.showCenter();
 
     };
@@ -266,6 +266,7 @@ function Gallery_Img_Content_Popup(id) {
         });
     };
     _this.loadMoreBtnClick = function () {
+        var contentLoadNonce = jQuery(this).attr('data-content-nonce-value');
         if (parseInt(_this.content.find(".pagenum:last").val()) < parseInt(_this.container.find("#total").val())) {
             var pagenum = parseInt(_this.content.find(".pagenum:last").val()) + 1;
             var perpage = gallery_obj[0].content_per_page;
@@ -275,13 +276,13 @@ function Gallery_Img_Content_Popup(id) {
             var pID = postID;
             var likeStyle = _this.ratingType;
             var ratingCount = param_obj.ht_popup_rating_count;
-            _this.getResult(pagenum, perpage, galleryid,  linkbutton, showbutton, pID, likeStyle, ratingCount);
+            _this.getResult(pagenum, perpage, galleryid, linkbutton, showbutton, pID, likeStyle, ratingCount,contentLoadNonce);
         } else {
             _this.loadMoreBtn.hide();
         }
         return false;
     };
-    _this.getResult = function (pagenum, perpage, galleryid,  linkbutton, showbutton, pID, likeStyle, ratingCount) {
+    _this.getResult = function (pagenum, perpage, galleryid, linkbutton, showbutton, pID, likeStyle, ratingCount,contentLoadNonce) {
         var data = {
             action: "huge_it_gallery_ajax",
             task: 'load_images_content',
@@ -292,7 +293,8 @@ function Gallery_Img_Content_Popup(id) {
             showbutton: showbutton,
             pID: pID,
             likeStyle: likeStyle,
-            ratingCount: ratingCount
+            ratingCount: ratingCount,
+            galleryImgContentLoadNonce:contentLoadNonce
         };
         _this.loadingIcon.show();
         _this.loadMoreBtn.hide();
@@ -300,11 +302,11 @@ function Gallery_Img_Content_Popup(id) {
                 if (response.success) {
                     var $objnewitems = jQuery(response.success);
                     _this.container.children().append($objnewitems);
-                    setTimeout(function(){
-                        galleryImgIsotope(_this.container.children().first(),'reloadItems');
-                        galleryImgIsotope(_this.container.children().first(),{sortBy: 'original-order'});
-                        galleryImgIsotope(_this.container.children().first(),'reLayout');
-                    },100);
+                    setTimeout(function () {
+                        galleryImgIsotope(_this.container.children().first(), 'reloadItems');
+                        galleryImgIsotope(_this.container.children().first(), {sortBy: 'original-order'});
+                        galleryImgIsotope(_this.container.children().first(), 'reLayout');
+                    }, 100);
 
                     _this.container.children().find('img').on('load', function () {
                         var defaultBlockHeight = param_obj.ht_view2_element_height + 37;
@@ -343,7 +345,7 @@ function Gallery_Img_Content_Popup(id) {
                                 }
                             }
                         };
-                        galleryImgIsotope(_this.container.children(),options2);
+                        galleryImgIsotope(_this.container.children(), options2);
                         if (param_obj.ht_view2_content_in_center == 'on') {
                             _this.showCenter();
                         }
@@ -353,13 +355,15 @@ function Gallery_Img_Content_Popup(id) {
                     if (_this.content.find(".pagenum:last").val() == _this.content.find("#total").val()) {
                         _this.loadMoreBtn.hide();
                     }
-                    ratingCountsOptimize(_this.container,_this.ratingType);
+                    ratingCountsOptimize(_this.container, _this.ratingType);
                     if (param_obj.image_natural_size_contentpopup == 'natural') {
                         setTimeout(function () {
                             _this.imagesBehavior();
                         }, 100);
-                    };
-                } else {
+                    }
+                    ;
+                }
+                else {
                     alert("no");
                 }
             }

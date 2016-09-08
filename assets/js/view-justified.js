@@ -29,6 +29,7 @@ function Gallery_Img_Justified(id) {
         _this.loadMoreBtn.on('click', _this.loadMoreBtnClick);
     };
     _this.loadMoreBtnClick = function () {
+        var justifiedLoadNonce = jQuery(this).attr('data-justified-nonce-value');
         if (parseInt(_this.content.find(".pagenum:last").val()) < parseInt(_this.content.find("#total").val())) {
             var pagenum = parseInt(_this.content.find(".pagenum:last").val()) + 1;
             var perpage = gallery_obj[0].content_per_page;
@@ -36,13 +37,13 @@ function Gallery_Img_Justified(id) {
             var pID = postID;
             var likeStyle = _this.ratingType;
             var ratingCount = param_obj.ht_just_rating_count;
-            _this.getResult(pagenum, perpage, galleryid, pID, likeStyle, ratingCount);
+            _this.getResult(pagenum, perpage, galleryid, pID, likeStyle, ratingCount, justifiedLoadNonce);
         } else {
             _this.loadMoreBtn.hide();
         }
         return false;
     };
-    _this.getResult = function (pagenum, perpage, galleryid, pID, likeStyle, ratingCount) {
+    _this.getResult = function (pagenum, perpage, galleryid, pID, likeStyle, ratingCount, justifiedLoadNonce) {
         var data = {
             action: "huge_it_gallery_ajax",
             task: 'load_image_justified',
@@ -51,7 +52,8 @@ function Gallery_Img_Justified(id) {
             galleryid: galleryid,
             pID: pID,
             likeStyle: likeStyle,
-            ratingCount: ratingCount
+            ratingCount: ratingCount,
+            galleryImgJustifiedLoadNonce: justifiedLoadNonce
         };
         _this.loadingIcon.show();
         _this.loadMoreBtn.hide();

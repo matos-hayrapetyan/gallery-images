@@ -181,16 +181,16 @@
 					<?php endif; ?>
 					<?php if ( $row->name != "" ) { ?>
 						<div class="title-block_<?php echo $galleryID; ?>">
-						<?php if($link != '' || !empty($link)): ?>
+							<?php if ( $link != '' || ! empty( $link ) ): ?>
 							<a title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
 							   href="<?php echo $link; ?>" <?php if ( $row->link_target == "on" ) {
 								echo 'target="_blank"';
 							} ?>>
-						<?php endif;?>
-							<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>
-						<?php if($row->link != '' || !empty($row->link)): ?>
+								<?php endif; ?>
+								<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>
+								<?php if ( $link != '' || ! empty( $link ) ): ?>
 							</a>
-						<?php endif;?>
+						<?php endif; ?>
 						</div>
 					<?php } ?>
 				</div>
@@ -201,12 +201,13 @@
 	</div>
 	<?php
 	$a = $disp_type;
-	if ( $a == 1 ){
-		$protocol    = stripos( $_SERVER['SERVER_PROTOCOL'], 'https' ) === true ? 'https://' : 'http://';
-		$actual_link = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "";
-		$pattern     = "/\?p=/";
-		$pattern2    = "/&page-img[0-9]+=[0-9]+/";
-		$pattern3    = "/\?page-img[0-9]+=[0-9]+/";
+	if ( $a == 1 ) {
+		$protocol                        = stripos( $_SERVER['SERVER_PROTOCOL'], 'https' ) === true ? 'https://' : 'http://';
+		$actual_link                     = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "";
+		$pattern                         = "/\?p=/";
+		$pattern2                        = "/&page-img[0-9]+=[0-9]+/";
+		$pattern3                        = "/\?page-img[0-9]+=[0-9]+/";
+		$gallery_img_lightbox_load_nonce = wp_create_nonce( 'gallery_img_lightbox_load_nonce' );
 		if ( preg_match( $pattern, $actual_link ) ) {
 			if ( preg_match( $pattern2, $actual_link ) ) {
 				$actual_link = preg_replace( $pattern2, '', $actual_link );
@@ -220,51 +221,52 @@
 		}
 		?>
 		<div class="load_more4">
-			<div class="load_more_button4"><?= $paramssld['video_ht_view4_loadmore_text']; ?></div>
+			<div class="load_more_button4"
+			     data-lightbox-nonce-value="<?php echo $gallery_img_lightbox_load_nonce; ?>"><?= $paramssld['video_ht_view4_loadmore_text']; ?></div>
 			<div class="loading4"><img src="<?php if ( $paramssld['video_ht_view4_loading_type'] == '1' ) {
-					echo GALLERY_IMG_IMAGES_URL.'/front_images/arrows/loading1.gif';
+					echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading1.gif';
 				} elseif ( $paramssld['video_ht_view4_loading_type'] == '2' ) {
-					echo GALLERY_IMG_IMAGES_URL.'/front_images/arrows/loading4.gif';
+					echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading4.gif';
 				} elseif ( $paramssld['video_ht_view4_loading_type'] == '3' ) {
-					echo GALLERY_IMG_IMAGES_URL.'/front_images/arrows/loading36.gif';
+					echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading36.gif';
 				} elseif ( $paramssld['video_ht_view4_loading_type'] == '4' ) {
-					echo GALLERY_IMG_IMAGES_URL.'/front_images/arrows/loading51.gif';
+					echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading51.gif';
 				} ?>"></div>
 		</div>
 		<?php
-	}elseif ( $a == 0 ){
-	?>
-	<div class="paginate4">
-		<?php
-		$protocol    = stripos( $_SERVER['SERVER_PROTOCOL'], 'https' ) === true ? 'https://' : 'http://';
-		$actual_link = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "";
-		$checkREQ    = '';
-		$pattern     = "/\?p=/";
-		$pattern2    = "/&page-img[0-9]+=[0-9]+/";
-		if ( preg_match( $pattern, $actual_link ) ) {
-			if ( preg_match( $pattern2, $actual_link ) ) {
-				$actual_link = preg_replace( $pattern2, '', $actual_link );
-			}
-			$checkREQ = $actual_link . '&page-img' . $galleryID . $pID;
-		} else {
-			$checkREQ = '?page-img' . $galleryID . $pID;
-		}
-		$pervpage = '';
-		if ( $page != 1 ) {
-			$pervpage = '<a href= ' . $checkREQ . '=1><i class="icon-style4 hugeiticons-fast-backward" ></i></a>  
-            <a href= ' . $checkREQ . '=' . ( $page - 1 ) . '><i class="icon-style4 hugeiticons-chevron-left"></i></a> ';
-		}
-		$nextpage = '';
-		if ( $page != $total ) {
-			$nextpage = ' <a href= ' . $checkREQ . '=' . ( $page + 1 ) . '><i class="icon-style4 hugeiticons-chevron-right"></i></a>  
-            <a href= ' . $checkREQ . '=' . $total . '><i class="icon-style4 hugeiticons-fast-forward" ></i></a>';
-		}
-		echo $pervpage . $page . '/' . $total . $nextpage;
+	} elseif ( $a == 0 ) {
 		?>
+		<div class="paginate4">
+			<?php
+			$protocol    = stripos( $_SERVER['SERVER_PROTOCOL'], 'https' ) === true ? 'https://' : 'http://';
+			$actual_link = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "";
+			$checkREQ    = '';
+			$pattern     = "/\?p=/";
+			$pattern2    = "/&page-img[0-9]+=[0-9]+/";
+			if ( preg_match( $pattern, $actual_link ) ) {
+				if ( preg_match( $pattern2, $actual_link ) ) {
+					$actual_link = preg_replace( $pattern2, '', $actual_link );
+				}
+				$checkREQ = $actual_link . '&page-img' . $galleryID . $pID;
+			} else {
+				$checkREQ = '?page-img' . $galleryID . $pID;
+			}
+			$pervpage = '';
+			if ( $page != 1 ) {
+				$pervpage = '<a href= ' . $checkREQ . '=1><i class="icon-style4 hugeiticons-fast-backward" ></i></a>  
+            <a href= ' . $checkREQ . '=' . ( $page - 1 ) . '><i class="icon-style4 hugeiticons-chevron-left"></i></a> ';
+			}
+			$nextpage = '';
+			if ( $page != $total ) {
+				$nextpage = ' <a href= ' . $checkREQ . '=' . ( $page + 1 ) . '><i class="icon-style4 hugeiticons-chevron-right"></i></a>  
+            <a href= ' . $checkREQ . '=' . $total . '><i class="icon-style4 hugeiticons-fast-forward" ></i></a>';
+			}
+			echo $pervpage . $page . '/' . $total . $nextpage;
+			?>
 		</div>
 		<?php
-		}
-		?>
-	
+	}
+	?>
+
 
 </section>
