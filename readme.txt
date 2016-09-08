@@ -1,10 +1,10 @@
-=== Gallery - Image Gallery ===
+=== Gallery ===
 Contributors: Huge-IT
 Donate link: http://huge-it.com/wordpress-gallery/
 Tags: gallery, image gallery, gallery image, lightbox gallery, wordpress gallery, photo gallery, content gallery, media gallery, youtube gallery, images gallery, responsive gallery, thumbnail gallery,
 Requires at least: 3.0.1
-Tested up to: 4.5.3
-Stable tag: 1.9.65
+Tested up to: 4.61
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,18 +12,22 @@ Gallery image is the best gallery plugin to use if you want to be original with 
 
 == Description ==
 
-### Gallery Image is one of the easiest plugins to use, even if you are new in WordPress.
+**Gallery - Image Gallery**
 
-### Image Gallery is the best plugin among WordPress gallery plugins. You can create the most beautiful gallery in a few minutes and enjoy the result.
-
-### Just add images and videos, write descriptions and titles for each image, choose among 7 incredible views. Plugin allows you to make your website attractive and good-looking.
+= Gallery Image is one of the easiest plugins to use, even if you are new in WordPress. =
 
 * [Wordpress Image Gallery](http://huge-it.com/wordpress-gallery/)
-* [Demo](http://huge-it.com/wordpress-plugins-gallery-demo/)
-* [FAQ](http://huge-it.com/wordpress-gallery-faq/)
-* [User Manual](http://huge-it.com/wordpress-gallery-user-manual/)
+* [Demo Image Gallery](http://huge-it.com/wordpress-plugins-gallery-demo/)
+* [FAQ Image Gallery](http://huge-it.com/wordpress-gallery-faq/)
+* [User Manual Image Gallery](http://huge-it.com/wordpress-gallery-user-manual/)
+* [Image Gallery Support](http://huge-it.com/contact-us/)
+* [Image Gallery Github Project](https://github.com/Huge-IT/gallery-images)
 
 https://www.youtube.com/watch?v=fNz0hW01k3k
+
+= Image Gallery is the best plugin among WordPress gallery plugins. You can create the most beautiful gallery in a few minutes and enjoy the result. =
+
+= Just add images and videos, write descriptions and titles for each image, choose among 7 incredible views. Plugin allows you to make your website attractive and good-looking. =
 
 Install plugin and see the result of your creativeness.
 
@@ -880,6 +884,19 @@ The commercial version users can do unlimited customization, if your images/vide
 
 
 == Changelog ==
+
+= 2.0.0 =
+* 1) Changed function names, defines and classnames to have unique prefixes
+* 2) Refined folder and image names
+* 3) Fixed the issue with direct file access to plugin files
+* 4) Changed the code structure to be more Object Oriented, now all major functionality of plugin is stored in a single instance which is accessible via Gallery_Img() function, this allows other plugins/extensions to use the functionality of this plugin
+* 5) Removed Lazy codes both, from back and front end
+* 6) Removed unreadable codes, and replaced with documented codes
+* 7) Made further code optimization in order to meet required WordPress coding standards
+* 8) Optimized all thumb images in all views. Now the page with our Gallery will be loaded more quickly, then before it.
+* 9) Code optimization loads the admin panel more quickly now as well
+* 10) Added nonces for all _POST, _GET requests
+* 11) Fixed the collation and engine PHP errors during plugin instalation of tables
 
 = 1.9.65 =
 *  Added credits and attribution in the source code refering the original authors.
