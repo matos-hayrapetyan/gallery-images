@@ -95,6 +95,7 @@ function Gallery_Img_Lightbox_Gallery(id) {
 
     };
     _this.loadMoreBtnClick = function () {
+        var lightboxLoadNonce = jQuery(this).attr('data-lightbox-nonce-value');
         if (parseInt(_this.content.find(".pagenum:last").val()) < parseInt(_this.container.find("#total").val())) {
             var pagenum = parseInt(_this.content.find(".pagenum:last").val()) + 1;
             var perpage = gallery_obj[0].content_per_page;
@@ -102,13 +103,13 @@ function Gallery_Img_Lightbox_Gallery(id) {
             var pID = postID;
             var likeStyle = _this.ratingType;
             var ratingCount = param_obj.ht_lightbox_rating_count;
-            _this.getResult(pagenum, perpage, galleryid, pID, likeStyle, ratingCount);
+            _this.getResult(pagenum, perpage, galleryid, pID, likeStyle, ratingCount, lightboxLoadNonce);
         } else {
             _this.loadMoreBtn.hide();
         }
         return false;
     };
-    _this.getResult = function (pagenum, perpage, galleryid, pID, likeStyle, ratingCount) {
+    _this.getResult = function (pagenum, perpage, galleryid, pID, likeStyle, ratingCount, lightboxLoadNonce) {
         var data = {
             action: "huge_it_gallery_ajax",
             task: 'load_images_lightbox',
@@ -117,7 +118,8 @@ function Gallery_Img_Lightbox_Gallery(id) {
             galleryid: galleryid,
             pID: pID,
             likeStyle: likeStyle,
-            ratingCount: ratingCount
+            ratingCount: ratingCount,
+            galleryImgLightboxLoadNonce:lightboxLoadNonce
         };
         _this.loadingIcon.show();
         _this.loadMoreBtn.hide();
@@ -125,7 +127,6 @@ function Gallery_Img_Lightbox_Gallery(id) {
                 if (response.success) {
                     var $objnewitems = jQuery(response.success);
                     _this.container.children().first().append($objnewitems);
-                    
                     _this.container.children().find('img').on('load', function () {
                         setTimeout(function(){
 							var options2 = {

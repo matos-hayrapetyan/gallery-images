@@ -15,6 +15,12 @@ class Gallery_Img_Ajax
     public function callback()
     {
         if (isset($_POST['task']) && $_POST['task'] == "load_images_content") {
+            if (isset($_POST['galleryImgContentLoadNonce'])) {
+                $galleryImgContentLoadNonce = esc_html($_POST['galleryImgContentLoadNonce']);
+                if (!wp_verify_nonce($galleryImgContentLoadNonce, 'gallery_img_content_load_nonce')) {
+                    wp_die('Security check fail');
+                }
+            }
             global $wpdb;
             global $huge_it_ip;
             $page = 1;
@@ -189,6 +195,12 @@ class Gallery_Img_Ajax
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////
         if (isset($_POST['task']) && $_POST['task'] == "load_images_lightbox") {
+            if (isset($_POST['galleryImgLightboxLoadNonce'])) {
+                $galleryImgLightboxLoadNonce = esc_html($_POST['galleryImgLightboxLoadNonce']);
+                if (!wp_verify_nonce($galleryImgLightboxLoadNonce, 'gallery_img_lightbox_load_nonce')) {
+                    wp_die('Security check fail');
+                }
+            }
             global $wpdb;
             global $huge_it_ip;
             $page = 1;
@@ -366,6 +378,12 @@ class Gallery_Img_Ajax
         }
 ////////////////////////////////////////////////////////////////////////////////////////////
         if (isset($_POST['task']) && $_POST['task'] == "load_image_justified") {
+            if (isset($_POST['galleryImgJustifiedLoadNonce'])) {
+                $galleryImgJustifiedLoadNonce = esc_html($_POST['galleryImgJustifiedLoadNonce']);
+                if (!wp_verify_nonce($galleryImgJustifiedLoadNonce, 'gallery_img_justified_load_nonce')) {
+                    wp_die('Security check fail');
+                }
+            }
             global $wpdb;
             global $huge_it_ip;
             $page = 1;
@@ -509,6 +527,12 @@ class Gallery_Img_Ajax
         }
 ////////////////////////////////////////////////////////////////////////////////////////////
         if (isset($_POST['task']) && $_POST['task'] == "load_image_thumbnail") {
+            if (isset($_POST['galleryImgThumbnailLoadNonce'])) {
+                $galleryImgThumbnailLoadNonce = esc_html($_POST['galleryImgThumbnailLoadNonce']);
+                if (!wp_verify_nonce($galleryImgThumbnailLoadNonce, 'gallery_img_thumbnail_load_nonce')) {
+                    wp_die('Security check fail');
+                }
+            }
             global $wpdb;
             global $huge_it_ip;
             $page = 1;
@@ -655,6 +679,12 @@ class Gallery_Img_Ajax
         }
 ///////////////////////////////////////////////////////////////////////////////////////////
         if (isset($_POST['task']) && $_POST['task'] == "load_blog_view") {
+            if (isset($_POST['galleryImgBlogLoadNonce'])) {
+                $galleryImgBlogLoadNonce = esc_html($_POST['galleryImgBlogLoadNonce']);
+                if (!wp_verify_nonce($galleryImgBlogLoadNonce, 'gallery_img_blog_load_nonce')) {
+                    wp_die('Security check fail');
+                }
+            }
             global $wpdb;
             global $huge_it_ip;
             $page = 1;

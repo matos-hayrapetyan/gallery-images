@@ -27,7 +27,8 @@ jQuery(document).ready(function () {
     jQuery('.remove-image-container a').on('click',function () {
         var galleryId = jQuery(this).data('gallery-id');
         var imageId = jQuery(this).data('image-id');
-        jQuery('#adminForm').attr('action', 'admin.php?page=galleries_huge_it_gallery&task=edit_cat&id='+galleryId+'&removeslide='+imageId);
+		var removeNonce = jQuery(this).data('nonce-value');
+        jQuery('#adminForm').attr('action', 'admin.php?page=galleries_huge_it_gallery&task=edit_cat&id='+galleryId+'&removeslide='+imageId+'&gallery_nonce_remove_image='+removeNonce);
         submitbutton('apply');
     });
 	jQuery(".wp-media-buttons-icon").click(function() {

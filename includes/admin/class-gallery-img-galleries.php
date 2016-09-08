@@ -69,6 +69,13 @@ class Gallery_Img_Galleries
                 }
                 break;
             case 'remove_cat':
+                $gallery_id = gallery_img_get_gallery_id();
+                if (isset($_REQUEST['huge_it_gallery_nonce_remove_gallery'])) {
+                    $huge_it_gallery_nonce_remove_gallery = $_REQUEST['huge_it_gallery_nonce_remove_gallery'];
+                    if (!wp_verify_nonce($huge_it_gallery_nonce_remove_gallery, 'huge_it_gallery_nonce_remove_gallery'.$gallery_id)) {
+                        wp_die('Security check fail');
+                    }
+                }
                 $this->remove_gallery($id);
                 $this->show_galleries_page();
                 break;
@@ -133,11 +140,18 @@ GROUP BY " . $wpdb->prefix . "huge_itgallery_images.gallery_id ";
      */
     public function edit_gallery($id)
     {
+        if(isset($_GET["removeslide"]))
+            $idfordelete = esc_html($_GET["removeslide"]);
+        if (isset($_REQUEST['gallery_nonce_remove_image'])) {
+            $gallery_nonce_remove_image = $_REQUEST['gallery_nonce_remove_image'];
+            if (!wp_verify_nonce($gallery_nonce_remove_image, 'gallery_nonce_remove_image'.$idfordelete)) {
+                wp_die('Security check fail');
+            }
+        }
         global $wpdb;
 		if (isset($_POST["huge_it_sl_effects"])) {
             if (isset($_GET["removeslide"])) {
                 if ($_GET["removeslide"] != '') {
-                    $idfordelete = $_GET["removeslide"];
                     $wpdb->query($wpdb->prepare("DELETE FROM " . $wpdb->prefix . "huge_itgallery_images  WHERE id = %d ", $idfordelete));
                 }
             }
