@@ -623,7 +623,7 @@ if ( isset( $_GET["addslide"] ) ) {
 				</div>
 			</div>
 		</div>
-		<?php echo wp_nonce_field( 'huge_it_gallery_nonce', 'huge_it_gallery_nonce' ) ?>
+		<?php wp_nonce_field( 'huge_it_gallery_nonce', 'huge_it_gallery_nonce' ) ?>
 		<input type="hidden" name="task" value=""/>
 	</form>
 </div>
