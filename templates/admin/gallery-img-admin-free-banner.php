@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <a target="_blank" class="yt"  href="https://www.youtube.com/channel/UCueCH_ulkgQZhSuc0L5rS5Q"></a>
     </div>
     <div class="hg_view_plugins_block">
-        <a target="_blank"  href="https://wordpress.org/support/view/plugin-reviews/gallery-images">Rate Us</a>
+        <a target="_blank"  href="https://wordpress.org/support/plugin/gallery-images/reviews/">Rate Us</a>
         <a target="_blank"  href="http://huge-it.com/wordpress-plugins-gallery-demo/">Full Demo</a>
         <a target="_blank"  href="http://huge-it.com/wordpress-gallery-faq//">FAQ</a>
         <a target="_blank"  href="http://huge-it.com/contact-us/">Contact Us</a>
