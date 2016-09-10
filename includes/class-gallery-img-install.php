@@ -21,6 +21,15 @@ class Gallery_Img_Install
         do_action('gallery_img_installed');
     }
 
+    public static function install_options(){
+        $gallery_default_params = gallery_img_get_general_options();
+        if(!(get_option('ht_blog_heart_likedislike_thumb_active_color'))){
+            foreach ($gallery_default_params as $name => $value) {
+                update_option($name, $value);
+            }
+        }
+    }
+
     private static function create_tables()
     {
 
@@ -176,12 +185,5 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
                 $wpdb->query($wpdb->prepare("UPDATE " . $table_name . " SET image_url= %s WHERE id=%d", $new_url, $image_url->id));
             }
         }
-		
-		$gallery_default_params = gallery_img_get_general_options();
-        if(!(get_option('ht_blog_heart_likedislike_thumb_active_color'))){
-			foreach ($gallery_default_params as $name => $value) {
-					update_option($name, $value);
-				}
-		}
     }
 }
