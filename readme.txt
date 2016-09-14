@@ -4,7 +4,7 @@ Donate link: http://huge-it.com/wordpress-gallery/
 Tags: gallery, image gallery, gallery image, lightbox gallery, wordpress gallery, photo gallery, content gallery, media gallery, youtube gallery, images gallery, responsive gallery, thumbnail gallery,
 Requires at least: 3.0.1
 Tested up to: 4.6.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -884,6 +884,9 @@ The commercial version users can do unlimited customization, if your images/vide
 
 
 == Changelog ==
+
+= 2.0.2 =
+*  A lot of users reported an issue with the gallery on PHP versions lower than 5.6. We have fixed it in this new version of the plugin.
 
 = 2.0.1 =
 *  After the latest update of the plugin many users have faced the same problem which was related to the gallery disappearing. It came out that the problem referred to the code which was managing the update of the database.  With this update we have fixed that code.
