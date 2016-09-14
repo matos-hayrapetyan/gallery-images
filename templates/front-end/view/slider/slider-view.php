@@ -922,7 +922,8 @@
 									<?php endif; ?>
 									<?php
 									if ( strpos( $image_row->image_url, 'youtu' ) !== false ) {
-										$video_thumb_url = gallery_img_get_video_id_from_url( $image_row->image_url )[0];
+										$video_thumb_url_info = gallery_img_get_video_id_from_url( $image_row->image_url );
+										$video_thumb_url = $video_thumb_url_info[0];
 										?>
 										<div class="thumb_wrapper" data-rowid="<?php echo $image_row->id; ?>"
 										     onclick="thevid=document.getElementById('thevideo'); thevid.style.display='block'; this.style.display='none'">
