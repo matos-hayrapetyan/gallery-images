@@ -4,13 +4,11 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Get all general options parameters in a single array
- *
- * @todo: use wp_options instead
+ * Get all default general options parameters in a single array
  *
  * @return array Array of all general options
  */
-function gallery_img_get_general_options()
+function gallery_img_get_default_options()
 {
     $gallery_default__params = array(
         'ht_view2_element_linkbutton_text' => 'View More',
@@ -358,10 +356,34 @@ function gallery_img_get_general_options()
         'ht_just_heart_likedislike_thumb_color' => 'E0E0E0',
         'ht_just_heart_likedislike_thumb_active_color' => 'F23D3D',
         'ht_blog_heart_likedislike_thumb_color' => 'D63E48',
-        'ht_blog_heart_likedislike_thumb_active_color' => 'E00000'
+        'ht_blog_heart_likedislike_thumb_active_color' => 'E00000',
+        'gallery_img_admin_image_hover_preview' => 'on',
     );
 
     return $gallery_default__params;
+}
+
+/**
+ * Get all general options parameters in a single array
+ *
+ * @return array Array of all general options
+ */
+function gallery_img_get_option(){
+	$new_options = array(
+		'gallery_img_admin_image_hover_preview' => 'on',
+		'light_box_size_fix'                    => 'false',
+		'light_box_width'                       => '500',
+		'light_box_height'                      => '500',
+		'light_box_maxwidth'                    => '900',
+		'light_box_maxheight'                   => '700',
+		'light_box_initialwidth'                => '300',
+		'light_box_initialheight'               => '100'
+	);
+	$gallery_img_get_option = array();
+	foreach ($new_options as $name => $new_option){
+		$gallery_img_get_option[$name] = get_option($name);
+	}
+	return $gallery_img_get_option;
 }
 
 function gallery_img_get_view_slag_by_id($id)
@@ -441,7 +463,7 @@ function gallery_img_get_image_by_sizes_and_src($image_src, $image_sizes, $is_th
         $natural_img_width = $natural_img_width[1];
         $natural_img_width = str_replace(' ', '', $natural_img_width);
         $natural_img_width = intval(str_replace('px', '', $natural_img_width));
-        if ($image_sizes[0] <= 150  || $image_sizes[0] == '') {
+        if ($image_sizes[0] <= 400  || $image_sizes[0] == '') {
             $image_url = wp_get_attachment_image_url($attachment_id, 'medium');
         }
         elseif ($image_sizes[0] >= $natural_img_width) {

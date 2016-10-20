@@ -67,10 +67,10 @@ class Gallery_Img_Shortcode {
 		$query   = $wpdb->prepare( "SELECT * FROM " . $wpdb->prefix . "huge_itgallery_gallerys where id = '%d' order by id ASC", $id );
 		$gallery = $wpdb->get_results( $query );
 
-		$paramssld = gallery_img_get_general_options();
+        $gallery_default_params = gallery_img_get_default_options();
 
 		ob_start();
-		Gallery_Img()->template_loader->load_front_end( $images, $paramssld, $gallery );
+		Gallery_Img()->template_loader->load_front_end( $images, $gallery_default_params, $gallery );
 
 		return ob_get_clean();
 

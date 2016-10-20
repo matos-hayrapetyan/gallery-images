@@ -6,6 +6,10 @@ if (!defined('ABSPATH')) {
 
 <div class="wrap">
     <?php require(GALLERY_IMG_TEMPLATES_PATH.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'gallery-img-admin-free-banner.php');?>
+    <p class="pro_info">
+        These features are available in the Professional version of the plugin only.
+        <a href="http://huge-it.com/wordpress-gallery/" target="_blank" class="button button-primary">Enable</a>
+    </p>
     <div>
         <div id="poststuff">
             <div id="post-body-content" class="gallery-options">
@@ -34,6 +38,7 @@ if (!defined('ABSPATH')) {
                         </li>
                     </ul>
                     <ul class="options-block" id="gallery-view-tabs-contents">
+                        <div class="gallery_options_grey_overlay"></div>
                         <li class="gallery-view-options-0">
                             <img style="width: 100%;margin-top: -12px;"
                                  src='<?php echo GALLERY_IMG_IMAGES_URL . '/admin_images/popup-tab-1.png'; ?>'>

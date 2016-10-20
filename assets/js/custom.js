@@ -326,12 +326,12 @@ function dislikeClick() {
 }
 function galleryImglightboxInit() {
     jQuery(".gallery-img-content a[href$='.jpg'], .gallery-img-content a[href$='.jpeg'], .gallery-img-content a[href$='.png'], .gallery-img-content a[href$='.gif']").addClass('gallery_group'+galleryId);
-    jQuery(".gallery_group"+galleryId).gicolorbox({rel: 'gallery_group'+galleryId});
-    jQuery(".giyoutube").gicolorbox({iframe: true, innerWidth: 640, innerHeight: 390});
-    jQuery(".givimeo").gicolorbox({iframe: true, innerWidth: 640, innerHeight: 390});
-    jQuery(".iframe").gicolorbox({iframe: true, width: "80%", height: "80%"});
-    jQuery(".inline").gicolorbox({inline: true, width: "50%"});
-    jQuery(".callbacks").gicolorbox({
+    jQuery(".gallery_group"+galleryId).removeClass('cboxElement').removeClass('cboxElement').gicolorbox({rel: 'gallery_group'+galleryId});
+    jQuery(".giyoutube").removeClass('cboxElement').removeClass('cboxElement').gicolorbox({iframe: true, innerWidth: 640, innerHeight: 390});
+    jQuery(".givimeo").removeClass('cboxElement').removeClass('cboxElement').gicolorbox({iframe: true, innerWidth: 640, innerHeight: 390});
+    jQuery(".iframe").removeClass('cboxElement').removeClass('cboxElement').gicolorbox({iframe: true, width: "80%", height: "80%"});
+    jQuery(".inline").removeClass('cboxElement').removeClass('cboxElement').gicolorbox({inline: true, width: "50%"});
+    jQuery(".callbacks").removeClass('cboxElement').removeClass('cboxElement').gicolorbox({
         onOpen: function () {
             alert('onOpen: gicolorbox is about to open');
         },
@@ -356,13 +356,13 @@ function galleryImglightboxInit() {
     jQuery(".slider-content").each(function () {
         group_count_slider++;
     });
-    jQuery(".gallery_group" + i).gicolorbox({rel: 'gallery_group' + i});
+    jQuery(".gallery_group" + i).removeClass('cboxElement').removeClass('cboxElement').gicolorbox({rel: 'gallery_group' + i});
     for (var i = 1; i <= group_count_slider; i++) {
-        jQuery(".gallery_group_" + groups + "_" + i).gicolorbox({rel: 'gallery_group_' + groups + "_" + i});
+        jQuery(".gallery_group_" + groups + "_" + i).removeClass('cboxElement').removeClass('cboxElement').gicolorbox({rel: 'gallery_group_' + groups + "_" + i});
         jQuery(".g-main-slider .clone  a").removeClass();
     }
-    jQuery('.non-retina').gicolorbox({rel: 'group5', transition: 'none'})
-    jQuery('.retina').gicolorbox({rel: 'group5', transition: 'none', retinaImage: true, retinaUrl: true});
+    jQuery('.non-retina').removeClass('cboxElement').removeClass('cboxElement').gicolorbox({rel: 'group5', transition: 'none'})
+    jQuery('.retina').removeClass('cboxElement').removeClass('cboxElement').gicolorbox({rel: 'group5', transition: 'none', retinaImage: true, retinaUrl: true});
 }
 jQuery(document).ready(function () {
     jQuery('.gallery-img-content').on("click tap", '.huge_it_gallery_like_wrapper', ratingClick);

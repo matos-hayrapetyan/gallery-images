@@ -14,6 +14,7 @@ class Gallery_Img_Ajax
 
     public function callback()
     {
+        $gallery_default_params = gallery_img_get_default_options();
         if (isset($_POST['task']) && $_POST['task'] == "load_images_content") {
             if (isset($_POST['galleryImgContentLoadNonce'])) {
                 $galleryImgContentLoadNonce = esc_html($_POST['galleryImgContentLoadNonce']);
@@ -32,7 +33,7 @@ class Gallery_Img_Ajax
                 $pID = intval($_POST['pID']);
                 $likeStyle = esc_html($_POST['likeStyle']);
                 $ratingCount = esc_html($_POST['ratingCount']);
-                $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
+                $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' and sl_type='image' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $page_images = $wpdb->get_results($query);
                 $output = '';
                 foreach ($page_images as $key => $row) {
@@ -55,7 +56,7 @@ class Gallery_Img_Ajax
                     $descnohtml = strip_tags(
                         str_replace('__5_5_5__', '%', $row->description));
                     $result = substr($descnohtml, 0, 50);
-                    if($video_name == '' && (empty($row->sl_url) || $row->sl_url='') )
+                    if($video_name == '' && (empty($row->sl_url) || $row->sl_url == '') )
                         $no_title = 'no-title';
                     else
                         $no_title = '';
@@ -69,12 +70,12 @@ class Gallery_Img_Ajax
                         case 'image':
                             ?>
                             <?php
-                            if (get_option('image_natural_size_contentpopup') == 'natural') {
+                            if ($gallery_default_params['image_natural_size_contentpopup'] == 'natural') {
                                 $imgurl = $row->image_url;
                             } else {
                                 $imgurl = esc_url(gallery_img_get_image_by_sizes_and_src($row->image_url, array(
-                                    get_option('ht_view2_element_width'),
-                                    get_option('ht_view2_element_height')
+                                    $gallery_default_params['ht_view2_element_width'],
+                                    $gallery_default_params['ht_view2_element_height']
                                 ), false));
                             } ?>
                             <?php if ($row->image_url != ';') {
@@ -84,32 +85,9 @@ class Gallery_Img_Ajax
                         } ?>
                             <?php
                             break;
-                        case 'video':
-                            ?>
-                            <?php
-                            $videourl = gallery_img_get_video_id_from_url($row->image_url);
-                            if ($videourl[1] == 'youtube') {
-                                if (empty($row->thumb_url)) {
-                                    $thumb_pic = 'http://img.youtube.com/vi/' . $videourl[0] . '/mqdefault.jpg';
-                                } else {
-                                    $thumb_pic = $row->thumb_url;
-                                }
-                                $video = '<img src="' . $thumb_pic . '" alt="" />';
-                            } else {
-                                $hash = unserialize(wp_remote_fopen("http://vimeo.com/api/v2/video/" . $videourl[0] . ".php"));
-                                if (empty($row->thumb_url)) {
-                                    $imgsrc = $hash[0]['thumbnail_large'];
-                                } else {
-                                    $imgsrc = $row->thumb_url;
-                                }
-                                $video = '<img src="' . $imgsrc . '" alt="" />';
-                            }
-                            ?>
-                            <?php
-                            break;
                     }
                     ?>
-                    <?php if ($link == '' || empty($link)) {
+                    <?php if ($row->sl_url == '' || empty($row->sl_url)) {
                         $button = '';
                     } else {
                         if ($row->link_target == "on") {
@@ -247,42 +225,13 @@ class Gallery_Img_Ajax
                             if ($row->image_url != ';') {
                                 $video = '<a href="' . $imgurl[0] . '" title="' . $video_name . '"><img id="wd-cl-img' . $key . '" src="' . esc_url(gallery_img_get_image_by_sizes_and_src(
                                         $imgurl[0], array(
-                                        get_option('ht_view6_width'),
+                                        $gallery_default_params['ht_view6_width'],
                                         ''
                                     ), false
                                     )) . '" alt="' . $video_name . '" /></a>';
                             } else {
                                 $video = '<img id="wd-cl-img' . $key . '" src="images/noimage.jpg" alt="" />';
                             } ?>
-                            <?php
-                            break;
-                        case 'video':
-                            ?>
-                            <?php
-                            $videourl = gallery_img_get_video_id_from_url($row->image_url);
-                            if ($videourl[1] == 'youtube') {
-                                if (empty($row->thumb_url)) {
-                                    $thumb_pic = 'http://img.youtube.com/vi/' . $videourl[0] . '/mqdefault.jpg';
-                                } else {
-                                    $thumb_pic = $row->thumb_url;
-                                }
-                                $video = '<a class="youtube huge_it_videogallery_item group1"  href="https://www.youtube.com/embed/' . $videourl[0] . '" title="' . $video_name . '">
-                                            <img src="' . $thumb_pic . '" alt="' . $video_name . '" />
-                                            <div class="play-icon ' . $videourl[1] . '-icon"></div>
-                                        </a>';
-                            } else {
-                                $hash = unserialize(wp_remote_fopen("http://vimeo.com/api/v2/video/" . $videourl[0] . ".php"));
-                                if (empty($row->thumb_url)) {
-                                    $imgsrc = $hash[0]['thumbnail_large'];
-                                } else {
-                                    $imgsrc = $row->thumb_url;
-                                }
-                                $video = '<a class="vimeo huge_it_videogallery_item group1" href="http://player.vimeo.com/video/' . $videourl[0] . '" title="' . $video_name . '">
-                                    <img src="' . $imgsrc . '" alt="" />
-                                    <div class="play-icon ' . $videourl[1] . '-icon"></div>
-                                </a>';
-                            }
-                            ?>
                             <?php
                             break;
                     }
@@ -479,7 +428,7 @@ class Gallery_Img_Ajax
                     switch ($imagerowstype) {
                         case 'image':
                             if ($row->image_url != ';') {
-                                $imgperfix = esc_url(gallery_img_get_image_by_sizes_and_src($imgurl[0], array('', get_option('ht_view8_element_height')), false));
+                                $imgperfix = esc_url(gallery_img_get_image_by_sizes_and_src($imgurl[0], array('', $gallery_default_params['ht_view8_element_height']), false));
                                 $video = '<a class="gallery_group' . $idofgallery . '" href="' . $imgurl[0] . '" title="' . $video_name . '">
                                             <img  id="wd-cl-img' . $key . '" alt="' . $video_name . '" src="' . $imgperfix . '"/>
                                             ' . $likeCont . '
@@ -491,32 +440,6 @@ class Gallery_Img_Ajax
                                         <input type="hidden" class="pagenum" value="' . $page . '" />';
                             } ?>
                             <?php
-                            break;
-                        case 'video':
-                            if ($videourl[1] == 'youtube') {
-                                if (empty($row->thumb_url)) {
-                                    $thumb_pic = 'http://img.youtube.com/vi/' . $videourl[0] . '/mqdefault.jpg';
-                                } else {
-                                    $thumb_pic = $row->thumb_url;
-                                }
-                                $video = '<a class="youtube huge_it_videogallery_item gallery_group' . $idofgallery . '"  href="https://www.youtube.com/embed/' . $videourl[0] . '" title="' . $video_name . '">
-                                                <img  src="' . $thumb_pic . '" alt="' . $video_name . '" />
-                                                ' . $likeCont . '
-                                                <div class="play-icon ' . $videourl[1] . '-icon"></div>
-                                        </a>';
-                            } else {
-                                $hash = unserialize(wp_remote_fopen("http://vimeo.com/api/v2/video/" . $videourl[0] . ".php"));
-                                if (empty($row->thumb_url)) {
-                                    $imgsrc = $hash[0]['thumbnail_large'];
-                                } else {
-                                    $imgsrc = $row->thumb_url;
-                                }
-                                $video = '<a class="vimeo huge_it_videogallery_item gallery_group' . $idofgallery . '" href="http://player.vimeo.com/video/' . $videourl[0] . '" title="' . $video_name . '">
-                                                <img alt="' . $video_name . '" src="' . $imgsrc . '"/>
-                                                ' . $likeCont . '
-                                                <div class="play-icon ' . $videourl[1] . '-icon"></div>
-                                        </a>';
-                            }
                             break;
                     }
                     $output .= $video . '<input type="hidden" class="pagenum" value="' . $page . '" />';
@@ -544,7 +467,7 @@ class Gallery_Img_Ajax
                 $pID = intval($_POST["pID"]);
                 $likeStyle = esc_html($_POST['likeStyle']);
                 $ratingCount = esc_html($_POST['ratingCount']);
-                $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
+                $query = $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itgallery_images where gallery_id = '%d' and sl_type='image' order by ordering ASC LIMIT %d,%d", $idofgallery, $start, $num);
                 $output = '';
                 $page_images = $wpdb->get_results($query);
                 foreach ($page_images as $key => $row) {
@@ -570,26 +493,13 @@ class Gallery_Img_Ajax
                     }
                     switch ($imagerowstype) {
                         case 'image':
-                            if (get_option('image_natural_size_thumbnail') == 'resize') {
-                                $imgperfix = esc_url(gallery_img_get_image_by_sizes_and_src($imgurl[0], array(get_option('thumb_image_width'), get_option('thumb_image_height')), false));
+                            if ($gallery_default_params['image_natural_size_thumbnail'] == 'resize') {
+                                $imgperfix = esc_url(gallery_img_get_image_by_sizes_and_src($imgurl[0], array($gallery_default_params['thumb_image_width'], $gallery_default_params['thumb_image_height']), false));
                             } else {
                                 $imgperfix = $imgurl[0];
                             }
                             $video = '<a class="gallery_group' . $idofgallery . '" href="' . $row->image_url . '" title="' . $video_name . '"></a>
                             <img  src="' . $imgperfix . '" alt="' . $video_name . '" />';
-                            break;
-                        case 'video':
-                            if ($videourl[1] == 'youtube') {
-                                $video = '<a class="youtube huge_it_gallery_item gallery_group' . $idofgallery . '"  href="https://www.youtube.com/embed/' . $videourl[0] . '" title="' . str_replace("__5_5_5__", "%", $row->name) . '"></a>
-                                    <img alt="' . str_replace("__5_5_5__", "%", $row->name) . '" src="http://img.youtube.com/vi/' . $videourl[0] . '/mqdefault.jpg"  />';
-                            } else {
-                                $hash = unserialize(wp_remote_fopen("http://vimeo.com/api/v2/video/" . $videourl[0] . ".php"));
-                                $imgsrc = $hash[0]['thumbnail_large'];
-                                $video = '<a class="vimeo huge_it_gallery_item gallery_group' . $idofgallery . '" href="http://player.vimeo.com/video/' . $videourl[0] . '" title="' . str_replace("__5_5_5__", "%", $row->name) . '"></a>
-                                    <img alt="' . str_replace("__5_5_5__", "%", $row->name) . '" src="' . $imgsrc . '"  />';
-                            }
-                            ?>
-                            <?php
                             break;
                     }
                     ?>

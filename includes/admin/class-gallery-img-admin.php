@@ -56,6 +56,8 @@ class Gallery_Img_Admin
         $this->init();
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('wp_loaded', array($this, 'wp_loaded'));
+	    add_action( 'wp_loaded', array( $this, 'wp_loaded_duplicate_gallery' ) );
+	    add_action( 'wp_loaded', array( $this, 'wp_loaded_remove_gallery' ) );
     }
 
     /**
@@ -78,7 +80,7 @@ class Gallery_Img_Admin
         $this->pages[] = add_menu_page(__('Huge-IT  Gallery', 'gallery-images'), __('Huge-IT Gallery', 'gallery-images'), 'delete_pages', 'galleries_huge_it_gallery', array(Gallery_Img()->admin->galleries, 'load_gallery_page'), GALLERY_IMG_IMAGES_URL . "/admin_images/huge-it-gallery-logo-for-menu.png");
         $this->pages[] = add_submenu_page('galleries_huge_it_gallery', __('Galleries', 'gallery-images'), __('Galleries', 'gallery-images'), 'delete_pages', 'galleries_huge_it_gallery', array(Gallery_Img()->admin->galleries, 'load_gallery_page'));
 
-        $this->pages[] = add_submenu_page('galleries_huge_it_gallery', __('General Options', 'gallery-images'), __('General Options', 'gallery-images'), 'delete_pages', 'Options_gallery_styles', array(Gallery_Img()->admin->general_options, 'load_page'));
+        $this->pages[] = add_submenu_page('galleries_huge_it_gallery', __('Advanced Features PRO', 'gallery-images'), __('Advanced Features PRO', 'gallery-images'), 'delete_pages', 'Options_gallery_styles', array(Gallery_Img()->admin->general_options, 'load_page'));
         $this->pages[] = add_submenu_page('galleries_huge_it_gallery', __('Lightbox Options', 'gallery-images'), __('Lightbox Options', 'gallery-images'), 'delete_pages', 'Options_gallery_lightbox_styles', array(Gallery_Img()->admin->lightbox_options, 'load_page'));
 
         $this->pages[] = add_submenu_page('galleries_huge_it_gallery', __('Featured Plugins', 'gallery-images'), __('Featured Plugins', 'gallery-images'), 'delete_pages', 'huge_it_gallery_featured_plugins', array(Gallery_Img()->admin->featured_plugins, 'show_page'));
@@ -95,8 +97,8 @@ class Gallery_Img_Admin
 			}
 		}
         global $wpdb;
-        if (isset($_GET['task']) && $_GET['page'] == 'galleries_huge_it_gallery') {
-            $task = $_GET['task'];
+        if ( isset( $_GET['task'] ) ) {
+            $task = sanitize_text_field( $_GET['task'] );
             if ($task == 'add_cat') {
                 $table_name = $wpdb->prefix . "huge_itgallery_gallerys";
                 $sql_2 = "
@@ -115,6 +117,95 @@ INSERT INTO
             }
         }
     }
+
+	/**
+	 * Duplicate Video
+	 */
+	function wp_loaded_duplicate_gallery() {
+	    if( isset( $_GET["id"] ) ) {
+            $id = absint($_GET["id"]);
+        }
+		if ( isset( $_REQUEST['gallery_duplicate_nonce'] ) ) {
+			$gallery_edit_nonce = $_REQUEST['gallery_duplicate_nonce'];
+			if ( ! wp_verify_nonce( $gallery_edit_nonce, 'huge_it_gallery_nonce_remove_gallery' . $id ) ) {
+				wp_die( 'Security check fail' );
+			}
+		}
+		if ( isset( $_GET['page'] ) && $_GET['page'] == 'galleries_huge_it_gallery' ) {
+            if ( isset($_GET["task"] ) ) {
+				if ( $_GET["task"] == 'duplicate_gallery_image' ) {
+					global $wpdb;
+					$table_name  = $wpdb->prefix . "huge_itgallery_gallerys";
+					$query       = $wpdb->prepare( "SELECT * FROM " . $table_name . " WHERE id=%d", $id );
+					$gallery_img = $wpdb->get_results( $query );
+					$wpdb->insert(
+						$table_name,
+						array(
+							'name'                   => $gallery_img[0]->name . ' Copy',
+							'sl_height'              => $gallery_img[0]->sl_height,
+							'sl_width'               => $gallery_img[0]->sl_width,
+							'pause_on_hover'         => $gallery_img[0]->pause_on_hover,
+							'gallery_list_effects_s' => $gallery_img[0]->gallery_list_effects_s,
+							'description'            => $gallery_img[0]->description,
+							'param'                  => $gallery_img[0]->param,
+							'sl_position'            => $gallery_img[0]->sl_position,
+							'ordering'               => $gallery_img[0]->ordering,
+							'published'              => $gallery_img[0]->published,
+							'huge_it_sl_effects'     => $gallery_img[0]->huge_it_sl_effects,
+							'display_type'           => $gallery_img[0]->display_type,
+							'content_per_page'       => $gallery_img[0]->content_per_page,
+							'rating'                 => $gallery_img[0]->rating,
+							'autoslide'              => $gallery_img[0]->autoslide
+						)
+					);
+					$last_key       = $wpdb->insert_id;
+					$table_name     = $wpdb->prefix . "huge_itgallery_images";
+					$query          = $wpdb->prepare( "SELECT * FROM " . $table_name . " WHERE gallery_id=%d", $id );
+					$galleries      = $wpdb->get_results( $query );
+					$galleries_list = "";
+					foreach ( $galleries as $key => $gallery ) {
+						$new_gallery = "('";
+						$new_gallery .= $gallery->name . "','" . $last_key . "','" . $gallery->description . "','" . $gallery->image_url . "','" .
+						                $gallery->sl_url . "','" . $gallery->sl_type . "','" . $gallery->link_target . "','" . $gallery->ordering . "','" .
+						                $gallery->published . "','" . $gallery->published_in_sl_width . "','" . $gallery->like . "','" .
+						                $gallery->dislike . "')";
+						$galleries_list .= $new_gallery . ",";
+					}
+					$galleries_list = substr( $galleries_list, 0, strlen( $galleries_list ) - 1 );
+					$query          = "INSERT into " . $table_name . " (`name`,`gallery_id`,`description`,`image_url`,`sl_url`,`sl_type`,`link_target`,`ordering`,`published`,`published_in_sl_width`,`like`,`dislike`)
+					VALUES " . $galleries_list;
+					$wpdb->query( $query );
+					wp_redirect( 'admin.php?page=galleries_huge_it_gallery' );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Removes Gallery
+	 */
+	function wp_loaded_remove_gallery() {
+		if (  isset($_GET["task"] )  && $_GET["task"] == 'remove_cat' ) {
+			$id = absint($_GET["id"]);
+			if ( isset( $_REQUEST['huge_it_gallery_nonce_remove_gallery'] ) ) {
+				$huge_it_gallery_nonce_remove_gallery = $_REQUEST['huge_it_gallery_nonce_remove_gallery'];
+				if ( ! wp_verify_nonce( $huge_it_gallery_nonce_remove_gallery, 'huge_it_gallery_nonce_remove_gallery' . $id ) ) {
+					wp_die( 'Security check fail' );
+				}
+			}
+			global $wpdb;
+			$sql_remov_tag = $wpdb->prepare( "DELETE FROM " . $wpdb->prefix . "huge_itgallery_gallerys WHERE id = %d", $id );
+			$sql_remove_image = $wpdb->prepare( "DELETE FROM " . $wpdb->prefix . "huge_itgallery_images WHERE gallery_id = %d", $id );
+			if ( ! $wpdb->query( $sql_remov_tag ) ) {
+				setcookie( 'gallery_deleted', 'fail', time()+2 );
+			} else {
+				$wpdb->query( $sql_remov_tag );
+				$wpdb->query( $sql_remove_image );
+				setcookie( 'gallery_deleted', 'success',time()+2 );
+			}
+			wp_redirect( 'admin.php?page=galleries_huge_it_gallery' );
+		}
+	}
 
 }
 

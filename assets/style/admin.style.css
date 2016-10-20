@@ -1,4 +1,104 @@
+h3.section_for_pro:after{
+	content: '';
+	display: inline-block;
+	width: 30px;
+	height: 15px;
+	background: url('../images/admin_images/Gallery_Pro.png') no-repeat;
+	top: 3px;
+	position: relative;
+}
+.wp-list-table td{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+a span.duplicate-icon{
+	background: url(../images/admin_images/fields.opt.png) 0 -43px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 22px;
+	height: 23px;
+	opacity: 0.5;
+}a span.delete-icon{
+	 background: url(../images/admin_images/fields.opt.png) 0 0;
+	 background-repeat: no-repeat;
+	 display: inline-block;
+	 width: 22px;
+	 height: 23px;
+	 opacity: 0.5;
+ }
+a.duplicate-link{
+	margin-left: 18px;
+	box-shadow: none;
+}a.delete-link{
+	margin-left: 13px;
+	box-shadow: none;
+}
+#img_preview{
+	float:left;
+}
+#img_preview label{
+	margin: 7px 0 0 5px;
+	font-size: 15px;
+	display: inline-block;
+}
+.gallery_options_grey_overlay{
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .2);
+	position: absolute;
+	z-index: 10;
+}
+.lightbox-grey-wrapper:before{
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .2);
+	position: absolute;
+	z-index: 10;
+}
+.lightbox-img-wrapper{
+	position: relative;
+}
+#gallery-view-tabs-contents{
+	position: relative;
+	display: inline-block;
+}
+.pro_info {
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+.pro_info a {
+	background-color: #BF1E2E !important;
+	box-shadow: #BF1E2E 0 1px 0 0 !important;
+	text-shadow: #BF1E2E 0 -1px 1px !important;
+	border-color: #BF1E2E !important;
+}
+.pro_info a:active {
+	vertical-align: baseline !important;
+}
 /*#########galleryS LIST PAGE###########*/
+#gallery-image-zoom {
+	position: fixed;
+	width: 50%;
+	height: 80%;
+	display: none;
+	left: 57%;
+	top: 50%;
+	z-index: 999999;
+	transform: translate(-50%, -50%);
+}
+#gallery-image-zoom img {
+	height: auto;
+	width: auto;
+	max-width: 100%;
+	max-height: 100%;
+	margin: 0 auto;
+	display: block;
+	top: 50%;
+	transform: translateY(-50%);
+	position: relative;
+}
 #gallerys-list-page  .add-new-h2 {
 	cursor:pointer;
 }
@@ -89,7 +189,6 @@
 }
 .gallery-options #post-body-heading {width:100%;}
 #post-body-heading h3 {
-	float:left;
 	margin:-5px 0 0 5px !important;
 	padding:0;
 }
@@ -127,6 +226,16 @@
 	background-position: 0;
 	margin-right: 0 !important;
 }
+#post-body-heading .button.add-video-slide:after{
+	content: '';
+	height: 15px;
+	width: 30px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	background: url('../images/admin_images/Gallery_Pro.png') no-repeat;
+
+}
 #post-body-footer {
 	padding:5px 10px 5px 10px;
 }
@@ -134,7 +243,7 @@
 	float:right;
 }
 #images-list {
-	display:table;
+	display: inline-block;
 	width:100%;
 	height:auto;
 	border: 1px solid #e5e5e5;
@@ -160,31 +269,32 @@
 }
 #images-list .image-container {
 	position:relative;
-	width:24%;
+	width:20%;
 	padding:0 0.5% 0 0.5%;
 	float:left;
+	height: 185px;
 }
 #images-list .image-options {
 	width:74%;
 	float:left;
 }
 #images-list .image-container img {
-	width: 100%;
+	display: block;
 }
-#images-list  .play-icon {
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;	
+.list-img-wrapper{
+	width: 100%;
+	height: calc(100% - 30px);
+	overflow: hidden;
+	position: relative;
 }
 #images-list  .play-icon.youtube {background:url('../images/admin_images/play.youtube.png') center center no-repeat;}
 #images-list  .play-icon.vimeo {background:url('../images/admin_images/play.vimeo.png') center center no-repeat;}
 #images-list .image-options > div {
-        display:inline-block;
+	display:inline-block;
 	clear:both;
 	width:100%;
 	margin:0 0 10px 0;
+	padding-left: 5%;
 }
 #images-list .image-options label {
 	display: inline-block;
@@ -195,12 +305,12 @@
 } 
 #images-list .description-block label {padding:10px 0 0 0;}
 #images-list .image-options input[type='text'], #images-list .image-options select, #images-list .image-options textarea {
-	width: 83%;
+	width: 93%;
 }
  #images-list .image-options textarea { height:60px;}
 #images-list .image-options .link-block   input.url-input  {
 	float:left;
-	width:61%;
+	width:76%;
 	margin-bottom: 20px;
 }
 #images-list .image-options .link-block label.long {
@@ -222,7 +332,7 @@
 	padding:10px 0 0 0;
 	width:auto;
 	bottom: 15px;
-    right: 30px;
+    right: 7%;
 }
 #images-list .image-options .remove-image {float:right;}
 .editimageicon {
@@ -633,7 +743,7 @@
 /*Like-Dislike Styles*/
 
 /*Free Banner*/
-.free_version_banner {
+.gallery_free_version_banner {
 	position:relative;
 	display:block;
 	background-image:url('../images/admin_images/wp_banner_bg.jpg');
@@ -642,18 +752,19 @@
 	overflow:hidden;
 }
 
-.free_version_banner .manual_icon {
+.gallery_free_version_banner .manual_icon {
 	position:absolute;
 	display:block;
 	top:15px;
 	left:15px;
 	width: 140px;
 }
-.free_version_banner .usermanual_text {
+.gallery_free_version_banner .usermanual_text {
+	position: relative;
 	font-weight: bold !important;
 	display:block;
 	float:left;
-	width:270px;
+	width:286px;
 	margin-left:75px;
 	font-family:'Open Sans',sans-serif;
 	font-size:14px;
@@ -664,9 +775,9 @@
 	padding-top: 15px;
 }
 
-.free_version_banner .usermanual_text a,
-.free_version_banner .usermanual_text a:link,
-.free_version_banner .usermanual_text a:visited {
+.gallery_free_version_banner .usermanual_text a,
+.gallery_free_version_banner .usermanual_text a:link,
+.gallery_free_version_banner .usermanual_text a:visited {
 	display:inline-block;
 	font-family:'Open Sans',sans-serif;
 	font-size:17px;
@@ -677,15 +788,15 @@
 	text-decoration:underline;
 }
 
-.free_version_banner .usermanual_text a:hover,
-.free_version_banner .usermanual_text a:focus,
-.free_version_banner .usermanual_text a:active {
+.gallery_free_version_banner .usermanual_text a:hover,
+.gallery_free_version_banner .usermanual_text a:focus,
+.gallery_free_version_banner .usermanual_text a:active {
 	text-decoration:underline;
 }
 
-.free_version_banner .get_full_version,
-.free_version_banner .get_full_version:link,
-.free_version_banner .get_full_version:visited {
+.gallery_free_version_banner .get_full_version,
+.gallery_free_version_banner .get_full_version:link,
+.gallery_free_version_banner .get_full_version:visited {
 	padding-left: 60px;
 	padding-right: 4px;
 	display: inline-block;
@@ -703,19 +814,19 @@
 	border-radius: 2px;
 }
 
-.free_version_banner .get_full_version:hover {
+.gallery_free_version_banner .get_full_version:hover {
 	background:#ffffff;
 	color:#bf1e2e;
 	text-decoration:none;
 	outline:none;
 }
 
-.free_version_banner .get_full_version:focus,
-.free_version_banner .get_full_version:active {
+.gallery_free_version_banner .get_full_version:focus,
+.gallery_free_version_banner .get_full_version:active {
 
 }
 
-.free_version_banner .get_full_version:before {
+.gallery_free_version_banner .get_full_version:before {
 	content:'';
 	display:block;
 	position:absolute;
@@ -727,16 +838,16 @@
 	background-position:0 0;
 }
 
-.free_version_banner .get_full_version:hover:before {
+.gallery_free_version_banner .get_full_version:hover:before {
 	background-position:0 -27px;
 }
 
-.free_version_banner .huge_it_logo {
+.gallery_free_version_banner .huge_it_logo {
 	float:right;
 	margin:15px 15px;
 }
 
-.free_version_banner .description_text {
+.gallery_free_version_banner .description_text {
 	padding:0 0 13px 0;
 	position:relative;
 	display:block;
@@ -747,19 +858,19 @@
 	margin: 0 auto;
 	width: 52%;
 }
-.free_version_banner .description_text p{
+.gallery_free_version_banner .description_text p{
 	margin:0;
 	padding:0;
 	font-size: 14px;
 }
-.free_version_banner .hg_free_banner_bottom a {
+.gallery_free_version_banner .hg_free_banner_bottom a {
 	text-decoration: none;
 }
-.free_version_banner .hg_view_plugins_block {
+.gallery_free_version_banner .hg_view_plugins_block {
 	float: left;
 	position: relative;
 }
-.free_version_banner .hg_social_link_buttons {
+.gallery_free_version_banner .hg_social_link_buttons {
 	float: right;
 	width:170px;
 	height:36px;
@@ -769,7 +880,7 @@
 	margin-bottom: 20px;
 	margin-right: 15px;
 }
-.free_version_banner .hg_social_link_buttons a {
+.gallery_free_version_banner .hg_social_link_buttons a {
 	display: inline-block;
 	position:relative;
 	margin: 3px 3px;
@@ -778,7 +889,7 @@
 	background:url('../images/admin_images/f.png') no-repeat;
 }
 
-.free_version_banner .hg_social_link_buttons a:after {
+.gallery_free_version_banner .hg_social_link_buttons a:after {
 	content: '';
 	display:block;
 	position:absolute;
@@ -790,23 +901,23 @@
 	transition: background-color .1s linear;
 }
 
-.free_version_banner .hg_social_link_buttons a:hover:after {
+.gallery_free_version_banner .hg_social_link_buttons a:hover:after {
 	background-color: rgba( 255, 255, 255, .3 );
 }
 
-.free_version_banner .hg_social_link_buttons a.fb {
+.gallery_free_version_banner .hg_social_link_buttons a.fb {
 	background-position: -80px 0;
 }
 
-.free_version_banner .hg_social_link_buttons a.twitter {
+.gallery_free_version_banner .hg_social_link_buttons a.twitter {
 	background-position: 0 0;
 }
 
-.free_version_banner .hg_social_link_buttons a.gplus {
-	background-position: -120px 0;
+.gallery_free_version_banner .hg_social_link_buttons a.gplus {
+	background-position: -121px 0;
 }
 
-.free_version_banner .hg_social_link_buttons a.yt {
+.gallery_free_version_banner .hg_social_link_buttons a.yt {
 	background-position: -40px 0;
 }
 
@@ -836,7 +947,7 @@
 .hg_view_plugins_block a:hover {
 	text-decoration: underline;
 }
-.close_free_banner {
+.close_gallery_free_banner {
 	float: right;
 	color: #fff;
 	position: absolute;
@@ -847,22 +958,22 @@
 	transform: rotate(45deg);
 	margin:-3px -3px 0;
 }
-.close_free_banner:hover {
+.close_gallery_free_banner:hover {
 	color: #e7e3e3;
 }
 
 @media screen and (max-width: 1300px){
-	.free_version_banner .usermanual_text {
+	.gallery_free_version_banner .usermanual_text {
 		width: calc(100% - 210px);
 	}
 
-	.free_version_banner .get_full_version,
-	.free_version_banner .get_full_version:link,
-	.free_version_banner .get_full_version:visited {
+	.gallery_free_version_banner .get_full_version,
+	.gallery_free_version_banner .get_full_version:link,
+	.gallery_free_version_banner .get_full_version:visited {
 		top: 60px;
 	}
 
-	.free_version_banner .description_text {
+	.gallery_free_version_banner .description_text {
 		margin-top: 40px;
 	}
 }

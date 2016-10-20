@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Gallery_Img_Lightbox_Options {
 
+	public function __construct() {
+		add_action( 'gallery_img_save_lightbox_options', array( $this, 'save_options' ) );
+	}
+
 	/**
 	 * Loads Lightbox options page
 	 */
@@ -20,10 +24,32 @@ class Gallery_Img_Lightbox_Options {
 		}
 	}
 
+	public function save_options() {
+		if ( isset( $_REQUEST['huge_it_gallery_nonce_save_lightbox_options'] ) ) {
+			$huge_it_gallery_nonce_save_lightbox_options = $_REQUEST['huge_it_gallery_nonce_save_lightbox_options'];
+			if ( ! wp_verify_nonce( $huge_it_gallery_nonce_save_lightbox_options, 'huge_it_gallery_nonce_save_lightbox_options' ) ) {
+				wp_die( 'Security check fail' );
+			}
+		}
+		if (isset($_POST['params'])) {
+			$params = $_POST['params'];
+			foreach ($params as $name => $value) {
+				update_option($name, wp_unslash($value));
+			}
+			?>
+			<div class="updated"><p><strong><?php _e('Item Saved'); ?></strong></p></div>
+			<?php
+		}
+		$this->show_page();
+	}
+
+
 	/**
 	 * Shows Lightbox options page
 	 */
 	public function show_page() {
+		$gallery_img_get_option = gallery_img_get_option();
+		$gallery_img_get_default_options = gallery_img_get_default_options();
 		require( GALLERY_IMG_TEMPLATES_PATH.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'gallery-img-admin-lightbox-options-html.php' );
 	}
 }

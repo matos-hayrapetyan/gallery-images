@@ -73,7 +73,7 @@
 						     alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
 						     src="<?php echo esc_url( gallery_img_get_image_by_sizes_and_src( $imgurl[0], array(
 							     '',
-							     get_option( 'ht_view8_element_height' )
+							     $gallery_default_params[ 'ht_view8_element_height' ]
 						     ), false ) ); ?>"/>
 						<?php if ( $like_dislike != 'off' ): ?>
 							<div class="huge_it_gallery_like_cont_<?php echo $galleryID . $pID; ?>">
@@ -98,7 +98,7 @@
 											<?php endif; ?>
 											</span>
 											<span
-												class="huge_it_like_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+												class="huge_it_like_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 													echo 'huge_it_hide';
 												} ?>"
 												id="<?php echo $row->id ?>"><?php if ( $like_dislike != 'heart' ): ?><?php echo $row->like; ?><?php endif; ?></span>
@@ -118,7 +118,7 @@
 											      } ?>">
 											</span>
 										<span
-											class="huge_it_dislike_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+											class="huge_it_dislike_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 												echo 'huge_it_hide';
 											} ?>" id="<?php echo $row->id ?>"><?php echo $row->dislike; ?></span>
 										</span>
@@ -155,7 +155,7 @@
 											<?php endif; ?>
 											</span>
 											<span
-												class="huge_it_like_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+												class="huge_it_like_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 													echo 'huge_it_hide';
 												} ?>"
 												id="<?php echo $row->id ?>"><?php if ( $like_dislike != 'heart' ): ?><?php echo $row->like; ?><?php endif; ?></span>
@@ -175,7 +175,7 @@
 											      } ?>">
 											</span>
 											<span
-												class="huge_it_dislike_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+												class="huge_it_dislike_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 													echo 'huge_it_hide';
 												} ?>" id="<?php echo $row->id ?>"><?php echo $row->dislike; ?></span>
 										</span>
@@ -221,7 +221,7 @@
 															<?php endif; ?>
 															</span>
 															<span
-																class="huge_it_like_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+																class="huge_it_like_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 																	echo 'huge_it_hide';
 																} ?>"
 																id="<?php echo $row->id ?>"><?php if ( $like_dislike != 'heart' ): ?><?php echo $row->like; ?><?php endif; ?></span>
@@ -242,7 +242,7 @@
 															      } ?>">
 															</span>
 															<span
-																class="huge_it_dislike_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+																class="huge_it_dislike_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 																	echo 'huge_it_hide';
 																} ?>"
 																id="<?php echo $row->id ?>"><?php echo $row->dislike; ?></span>
@@ -287,7 +287,7 @@
 															<?php endif; ?>
 															</span>
 															<span
-																class="huge_it_like_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+																class="huge_it_like_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 																	echo 'huge_it_hide';
 																} ?>"
 																id="<?php echo $row->id ?>"><?php if ( $like_dislike != 'heart' ): ?><?php echo $row->like; ?><?php endif; ?></span>
@@ -308,7 +308,7 @@
 															      } ?>">
 															</span>
 															<span
-																class="huge_it_dislike_count <?php if ( $paramssld['ht_just_rating_count'] == 'off' ) {
+																class="huge_it_dislike_count <?php if ( $gallery_default_params['ht_just_rating_count'] == 'off' ) {
 																	echo 'huge_it_hide';
 																} ?>"
 																id="<?php echo $row->id ?>"><?php echo $row->dislike; ?></span>
@@ -349,15 +349,15 @@
 		<div class="load_more2">
 			<div
 				class="load_more_button2 load_more_button_<?php echo $galleryID; ?>"
-				data-justified-nonce-value="<?php echo $gallery_img_justified_load_nonce; ?>"><?php echo $paramssld['video_ht_view8_loadmore_text']; ?></div>
+				data-justified-nonce-value="<?php echo $gallery_img_justified_load_nonce; ?>"><?php echo $gallery_default_params['video_ht_view8_loadmore_text']; ?></div>
 			<div class="loading2 loading_<?php echo $galleryID; ?>"><img
-					src="<?php if ( $paramssld['video_ht_view8_loading_type'] == '1' ) {
+					src="<?php if ( $gallery_default_params['video_ht_view8_loading_type'] == '1' ) {
 						echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading1.gif';
-					} elseif ( $paramssld['video_ht_view8_loading_type'] == '2' ) {
+					} elseif ( $gallery_default_params['video_ht_view8_loading_type'] == '2' ) {
 						echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading4.gif';
-					} elseif ( $paramssld['video_ht_view8_loading_type'] == '3' ) {
+					} elseif ( $gallery_default_params['video_ht_view8_loading_type'] == '3' ) {
 						echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading36.gif';
-					} elseif ( $paramssld['video_ht_view8_loading_type'] == '4' ) {
+					} elseif ( $gallery_default_params['video_ht_view8_loading_type'] == '4' ) {
 						echo GALLERY_IMG_IMAGES_URL . '/front_images/arrows/loading51.gif';
 					} ?>"></div>
 		</div>
