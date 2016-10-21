@@ -17,7 +17,7 @@ function Gallery_Img_Thumbnails(id) {
     _this.loadMoreBtn = _this.content.find('.load_more_button3');
     _this.loadingIcon = _this.content.find('.loading3');
     _this.documentReady = function () {
-        ratingCountsOptimize(_this.container, _this.ratingType);
+        galleryImgRatingCountsOptimize(_this.container, _this.ratingType);
     };
     _this.addEventListeners = function () {
         _this.loadMoreBtn.on('click', _this.loadMoreBtnClick);
@@ -63,7 +63,7 @@ function Gallery_Img_Thumbnails(id) {
                         _this.loadMoreBtn.hide();
                     }
                     galleryImglightboxInit();
-                    ratingCountsOptimize(_this.container, _this.ratingType);
+                    galleryImgRatingCountsOptimize(_this.container, _this.ratingType);
                     setTimeout(function () {
                         if (param_obj.image_natural_size_thumbnail == 'natural') {
                             _this.naturalImageThumb();

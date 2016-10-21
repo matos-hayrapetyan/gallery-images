@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 <div class="wrap">
     <?php require(GALLERY_IMG_TEMPLATES_PATH.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'gallery-img-admin-free-banner.php');?>
     <p class="pro_info">
-        These features are available in the Professional version of the plugin only.
+        <?php echo __('These features are available in the Professional version of the plugin only.', 'gallery-images'); ?>
         <a href="http://huge-it.com/wordpress-gallery/" target="_blank" class="button button-primary">Enable</a>
     </p>
     <div>

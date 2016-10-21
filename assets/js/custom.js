@@ -6,19 +6,19 @@ function galleryImgIsotope(elem,option){
         elem.hugeitmicro(option);
     }
 }
-function randomString(length, chars) {
+function galleryImgRandomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
     return result;
 }
-function setCookie(name, value, expires, path, domain, secure) {
+function galleryImgSetCookie(name, value, expires, path, domain, secure) {
     document.cookie = name + "=" + escape(value) +
         ((expires) ? "; expires=" + expires : "") +
         ((path) ? "; path=" + path : "") +
         ((domain) ? "; domain=" + domain : "") +
         ((secure) ? "; secure" : "");
 }
-function getCookie(name) {
+function galleryImgGetCookie(name) {
     var cookie = " " + document.cookie;
     var search = " " + name + "=";
     var setStr = null;
@@ -37,10 +37,10 @@ function getCookie(name) {
     }
     return (setStr);
 }
-function delCookie(name) {
+function galleryImgDelCookie(name) {
     document.cookie = name + "=" + "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
 }
-function ratingCountsOptimize(container, ratingType) {
+function galleryImgRatingCountsOptimize(container, ratingType) {
     if (ratingType != 'heart') {
         container.find('.huge_it_like_count').each(function () {
             if (jQuery(this).text() < 0)jQuery(this).text(0);
@@ -122,7 +122,7 @@ function ratingCountsOptimize(container, ratingType) {
         });
     }
 };
-function ratingClick(e) {
+function galleryImgRatingClick(e) {
     var ratingType = jQuery(e.target).parents('.gallery-img-content').data('rating-type');
     var image_id = jQuery(this).parent().find('.huge_it_like_count').attr('id');
     var status = jQuery("span.huge_it_like_thumb[id='" + image_id + "']").attr('data-status');
@@ -142,30 +142,30 @@ function ratingClick(e) {
         if (resStatus == 'unliked') {
             date = new Date();
             date.setHours(date.getFullYear() + 1);
-            var cookie = setCookie('Like_' + image_id, randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), date.toUTCString());
+            var cookie = galleryImgSetCookie('Like_' + image_id, galleryImgRandomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), date.toUTCString());
         } else if (resStatus == 'liked') {
-            var cookie = getCookie('Like_' + image_id);
+            var cookie = galleryImgGetCookie('Like_' + image_id);
         }
     } else {
         if (resStatus == 'unliked' && resStatus2 == 'unliked') {
             date = new Date();
             date.setHours(date.getFullYear() + 1);
-            var cookie = setCookie('Like_' + image_id, randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), date.toUTCString());
+            var cookie = galleryImgSetCookie('Like_' + image_id, galleryImgRandomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), date.toUTCString());
         } else if (resStatus == 'unliked' && resStatus2 == 'disliked') {
             date = new Date();
             date.setHours(date.getFullYear() + 1);
-            var newCookie = getCookie('Dislike_' + image_id);
-            var cookie = setCookie('Like_' + image_id, newCookie, date.toUTCString());
-            delCookie('Dislike_' + image_id);
+            var newCookie = galleryImgGetCookie('Dislike_' + image_id);
+            var cookie = galleryImgSetCookie('Like_' + image_id, newCookie, date.toUTCString());
+            galleryImgDelCookie('Dislike_' + image_id);
         } else if (resStatus == 'liked') {
-            var cookie = getCookie('Like_' + image_id);
+            var cookie = galleryImgGetCookie('Like_' + image_id);
         }
     }
     var data = {
         action: 'huge_it_gallery_ajax',
         task: 'like',
         image_id: image_id,
-        cook: getCookie('Like_' + image_id),
+        cook: galleryImgGetCookie('Like_' + image_id),
         status: status
     };
     jQuery.post(adminUrl, data, function (response) {
@@ -216,7 +216,7 @@ function ratingClick(e) {
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.likeheart').removeClass('like_thumb_active').addClass('likeheart');
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.huge_it_like_thumb').removeClass('like_font_active');
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").attr('data-status', 'unliked')
-                    delCookie('Like_' + image_id);
+                    galleryImgDelCookie('Like_' + image_id);
                 }
             }
             else {
@@ -228,7 +228,7 @@ function ratingClick(e) {
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.like_thumb_up').removeClass('like_thumb_active').addClass('like_thumb_up');
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().removeClass('like_font_active');
                     jQuery("span.huge_it_like_thumb[id='" + image_id + "']").attr('data-status', 'unliked')
-                    delCookie('Like_' + image_id);
+                    galleryImgDelCookie('Like_' + image_id);
                 }
             }
             if (response.statDislike == 'Disliked') {
@@ -244,28 +244,28 @@ function ratingClick(e) {
     });
     return false;
 }
-function dislikeClick() {
+function galleryImgDislikeClick() {
     var image_id = jQuery(this).parent().find('.huge_it_dislike_count').attr('id');
     var resStatus = jQuery(this).parent().find("span.huge_it_dislike_thumb[id='" + image_id + "']").attr('data-status');
     var resStatus2 = jQuery(".huge_it_like_thumb[id='" + image_id + "']").attr('data-status');
     if (resStatus == 'unliked' && resStatus2 == 'unliked') {
         date = new Date();
         date.setHours(date.getFullYear() + 1);
-        var cook = setCookie('Dislike_' + image_id, randomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), date.toUTCString());
+        var cook = galleryImgSetCookie('Dislike_' + image_id, galleryImgRandomString(10, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), date.toUTCString());
     } else if (resStatus == 'unliked' && resStatus2 == 'liked') {
         date = new Date();
         date.setHours(date.getFullYear() + 1);
-        var newCookie = getCookie('Like_' + image_id);
-        var cook = setCookie('Dislike_' + image_id, newCookie, date.toUTCString());
-        delCookie('Like_' + image_id);
+        var newCookie = galleryImgGetCookie('Like_' + image_id);
+        var cook = galleryImgSetCookie('Dislike_' + image_id, newCookie, date.toUTCString());
+        galleryImgDelCookie('Like_' + image_id);
     } else if (resStatus == 'disliked') {
-        var cook = getCookie('Dislike_' + image_id);
+        var cook = galleryImgGetCookie('Dislike_' + image_id);
     }
     var data = {
         action: 'huge_it_gallery_ajax',
         task: 'dislike',
         image_id: image_id,
-        cook: getCookie('Dislike_' + image_id)
+        cook: galleryImgGetCookie('Dislike_' + image_id)
     }
     jQuery.post(adminUrl, data, function (response) {
         if (response) {
@@ -308,7 +308,7 @@ function dislikeClick() {
                 jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().find('.like_thumb_up').removeClass('like_thumb_active').addClass('like_thumb_up');
                 jQuery("span.huge_it_like_thumb[id='" + image_id + "']").parent().removeClass('like_font_active');
                 jQuery("span.huge_it_like_thumb[id='" + image_id + "']").attr('data-status', 'unliked')
-                delCookie('Like_' + image_id);
+                galleryImgDelCookie('Like_' + image_id);
             }
             if (response.statDislike == 'Disliked') {
                 jQuery("span.huge_it_dislike_thumb[id='" + image_id + "']").parent().find('.dislike_thumb_down').addClass('like_thumb_active');
@@ -318,7 +318,7 @@ function dislikeClick() {
                 jQuery("span.huge_it_dislike_thumb[id='" + image_id + "']").parent().find('.dislike_thumb_down').removeClass('like_thumb_active').addClass('dislike_thumb_down');
                 jQuery("span.huge_it_dislike_thumb[id='" + image_id + "']").parent().removeClass('like_font_active');
                 jQuery("span.huge_it_dislike_thumb[id='" + image_id + "']").attr('data-status', 'unliked');
-                delCookie('Dislike_' + image_id);
+                galleryImgDelCookie('Dislike_' + image_id);
             }
         }
     });
@@ -365,7 +365,7 @@ function galleryImglightboxInit() {
     jQuery('.retina').removeClass('cboxElement').removeClass('cboxElement').gicolorbox({rel: 'group5', transition: 'none', retinaImage: true, retinaUrl: true});
 }
 jQuery(document).ready(function () {
-    jQuery('.gallery-img-content').on("click tap", '.huge_it_gallery_like_wrapper', ratingClick);
-    jQuery('.gallery-img-content').on("click tap", '.huge_it_gallery_dislike_wrapper', dislikeClick);
+    jQuery('.gallery-img-content').on("click tap", '.huge_it_gallery_like_wrapper', galleryImgRatingClick);
+    jQuery('.gallery-img-content').on("click tap", '.huge_it_gallery_dislike_wrapper', galleryImgDislikeClick);
     galleryImglightboxInit();
 });

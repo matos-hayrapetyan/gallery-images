@@ -21,7 +21,7 @@ function Gallery_Img_Content_Slider(id) {
     };
     _this.documentReady = function () {
         _this.container.liquidSlider(_this.sliderOptons);
-        ratingCountsOptimize(_this.container,_this.ratingType);
+        galleryImgRatingCountsOptimize(_this.container,_this.ratingType);
     };
     _this.addEventListeners = function () {
         if(_this.autoSlide) {

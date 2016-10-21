@@ -22,7 +22,7 @@ function Gallery_Img_Justified(id) {
                     img.parent().find(".caption").css('display', 'none');
                 }
             });
-            ratingCountsOptimize(_this.container, _this.ratingType);
+            galleryImgRatingCountsOptimize(_this.container, _this.ratingType);
         });
     };
     _this.addEventListeners = function () {
@@ -71,7 +71,7 @@ function Gallery_Img_Justified(id) {
                         _this.loadMoreBtn.hide();
                     }
                     galleryImglightboxInit();
-                    ratingCountsOptimize(_this.container, _this.ratingType);
+                    galleryImgRatingCountsOptimize(_this.container, _this.ratingType);
                     setTimeout(function () {
                         jQuery('.justified-gallery a').each(function () {
                             var img = jQuery(this).find('img');

@@ -588,7 +588,7 @@ if ( isset( $_GET['id'] ) && $_GET['id'] != '' ) {
 							</ul>
 							<div id="major-publishing-actions">
 								<div id="publishing-action">
-									<input type="button" onclick="submitbutton('apply')" value="Save gallery"
+									<input type="button" onclick="galleryImgSubmitbutton('apply')" value="Save gallery"
 									       id="save-buttom" class="button button-primary button-large">
 								</div>
 								<div class="clear"></div>

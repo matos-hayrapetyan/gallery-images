@@ -6,9 +6,9 @@ var  name_changeTop = function(e) {
 };
 
 jQuery(document).ready(function () {
-	popupsizes(jQuery('#light_box_size_fix'));
+	galleryImgPopupSizes(jQuery('#light_box_size_fix'));
 	jQuery('#light_box_size_fix').change(function(){
-		popupsizes(jQuery(this));
+		galleryImgPopupSizes(jQuery(this));
 	});
 	var setTimeoutConst;
 	jQuery('ul#images-list > li > .image-container img').on('mouseenter',function () {
@@ -26,7 +26,7 @@ jQuery(document).ready(function () {
 		jQuery('#gallery-image-zoom').fadeOut('3000');
 	});
 	setTimeout(function () {
-		resizeAdminImages();
+		galleryImgResizeAdminImages();
 	});
     jQuery('.huge-it-editnewuploader .button-edit').click(function(e) {
         var send_attachment_bkp = wp.media.editor.send.attachment;
@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
         var imageId = jQuery(this).data('image-id');
 		var removeNonce = jQuery(this).data('nonce-value');
         jQuery('#adminForm').attr('action', 'admin.php?page=galleries_huge_it_gallery&task=edit_cat&id='+galleryId+'&removeslide='+imageId+'&gallery_nonce_remove_image='+removeNonce);
-        submitbutton('apply');
+        galleryImgSubmitbutton('apply');
     });
 	jQuery(".wp-media-buttons-icon").click(function() {
 		jQuery(".attachment-filters").css("display","none");
@@ -228,7 +228,7 @@ jQuery(document).ready(function () {
 
 	jQuery(".close_gallery_free_banner").on("click",function(){
 		jQuery(".gallery_free_version_banner").css("display","none");
-		hgSliderSetCookie( 'hgGalleryFreeBannerShow', 'no', {expires:86400} );
+		galleryImgSetCookie( 'hgGalleryFreeBannerShow', 'no', {expires:86400} );
 	});
 	
 	jQuery('.huge-it-insert-video-button').click(function(){
@@ -242,15 +242,11 @@ jQuery(document).ready(function () {
 	
 });
 
-/* Cookies */
-function hgSliderGetCookie(name) {
-	var matches = document.cookie.match(new RegExp(
-		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	));
-	return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+jQuery(window).resize(function () {
+	galleryImgResizeAdminImages();
+});
 
-function hgSliderSetCookie(name, value, options) {
+function galleryImgSetCookie(name, value, options) {
 	options = options || {};
 
 	var expires = options.expires;
@@ -281,14 +277,7 @@ function hgSliderSetCookie(name, value, options) {
 
 	document.cookie = updatedCookie;
 }
-
-function hgSliderDeleteCookie(name) {
-	setCookie(name, "", {
-		expires: -1
-	})
-};
-
-function filterInputs() {
+function galleryImgFilterInputs() {
 	var mainInputs = "";
 	jQuery("#images-list > li.highlights").each(function(){
 		jQuery(this).next().addClass('submit-post');
@@ -319,53 +308,32 @@ function filterInputs() {
 		jQuery(this).find('select').removeAttr('name');
 	});
 };
-
-function submitbutton(pressbutton){
-	if(!document.getElementById('name').value){
+function galleryImgSubmitbutton(pressbutton) {
+	if (!document.getElementById('name').value) {
 		alert("Name is required.");
 		return;
 	}
-	filterInputs();
-	document.getElementById("adminForm").action=document.getElementById("adminForm").action+"&task="+pressbutton;
+	galleryImgFilterInputs();
+	document.getElementById("adminForm").action = document.getElementById("adminForm").action + "&task=" + pressbutton;
 	document.getElementById("adminForm").submit();
 }
-function change_select(){
-	submitbutton('apply');
-}
-function ordering(name,as_or_desc)
-{
-	document.getElementById('asc_or_desc').value=as_or_desc;
-	document.getElementById('order_by').value=name;
-	document.getElementById('admin_form').submit();
-}
-function saveorder()
-{
-	document.getElementById('saveorder').value="save";
-	document.getElementById('admin_form').submit();
-
-}
-function listItemTask(this_id,replace_id)
-{
+function galleryImgListItemTask(this_id,replace_id){
 	document.getElementById('oreder_move').value=this_id+","+replace_id;
 	document.getElementById('admin_form').submit();
 }
-function doNothing() {
+function galleryImgDoNothing() {
 	var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
 	if( keyCode == 13 ) {
-
-
 		if(!e) var e = window.event;
-
 		e.cancelBubble = true;
 		e.returnValue = false;
-
 		if (e.stopPropagation) {
 			e.stopPropagation();
 			e.preventDefault();
 		}
 	}
 }
-function resizeAdminImages(){
+function galleryImgResizeAdminImages(){
 	jQuery('ul#images-list > li > .image-container .list-img-wrapper img').each(function () {
 		var imhHeight = jQuery(this).prop('naturalHeight');
 		var imhWidth = jQuery(this).prop('naturalWidth');
@@ -394,7 +362,7 @@ function resizeAdminImages(){
 		}
 	});
 }
-function popupsizes(checkbox){
+function galleryImgPopupSizes(checkbox){
 	if(checkbox.is(':checked')){
 		jQuery('.lightbox-options-block .not-fixed-size').css({'display':'none'});
 		jQuery('.lightbox-options-block .fixed-size').css({'display':'block'});

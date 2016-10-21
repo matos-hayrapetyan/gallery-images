@@ -13,7 +13,7 @@ $huge_it_gallery_nonce_galleries = wp_create_nonce( 'huge_it_gallery_nonce_galle
 	<div style="clear: both;"></div>
 	<div id="poststuff">
 		<div id="gallerys-list-page">
-			<form method="post" onkeypress="doNothing()" action="admin.php?page=galleries_huge_it_gallery"
+			<form method="post" onkeypress="galleryImgDoNothing()" action="admin.php?page=galleries_huge_it_gallery"
 			      id="admin_form" name="admin_form">
 				<h2>Huge-IT <?php echo __( 'Galleries', 'gallery-images' ); ?>
 					<a onclick="window.location.href='admin.php?page=galleries_huge_it_gallery&task=add_cat&gallery_wp_nonce_add_gallery=<?php echo $gallery_wp_nonce_add_gallery; ?>'"
@@ -83,7 +83,7 @@ $huge_it_gallery_nonce_galleries = wp_create_nonce( 'huge_it_gallery_nonce_galle
 								}
 							}
 							if ( $ka0 ) {
-								$move_up = '<span><a href="#reorder" onclick="return listItemTask(\'' . $x1 . '\',\'' . $x2 . '\')" title="Move Up">   <img src="' . plugins_url( 'images/uparrow.png', __FILE__ ) . '" width="16" height="16" border="0" alt="Move Up"></a></span>';
+								$move_up = '<span><a href="#reorder" onclick="return galleryImgListItemTask(\'' . $x1 . '\',\'' . $x2 . '\')" title="Move Up">   <img src="' . plugins_url( 'images/uparrow.png', __FILE__ ) . '" width="16" height="16" border="0" alt="Move Up"></a></span>';
 							} else {
 								$move_up = "";
 							}
@@ -112,7 +112,7 @@ $huge_it_gallery_nonce_galleries = wp_create_nonce( 'huge_it_gallery_nonce_galle
 							}
 
 							if ( $ka1 ) {
-								$move_down = '<span><a href="#reorder" onclick="return listItemTask(\'' . $x1 . '\',\'' . $x2 . '\')" title="Move Down">  <img src="' . plugins_url( 'images/downarrow.png', __FILE__ ) . '" width="16" height="16" border="0" alt="Move Down"></a></span>';
+								$move_down = '<span><a href="#reorder" onclick="return galleryImgListItemTask(\'' . $x1 . '\',\'' . $x2 . '\')" title="Move Down">  <img src="' . plugins_url( 'images/downarrow.png', __FILE__ ) . '" width="16" height="16" border="0" alt="Move Down"></a></span>';
 							} else {
 								$move_down = "";
 							}

@@ -57,7 +57,7 @@ function Gallery_Img_Lightbox_Gallery(id) {
 		setTimeout(function(){clearInterval(loadInterval);},7000);
 		
 		
-        ratingCountsOptimize(_this.container,_this.ratingType);
+        galleryImgRatingCountsOptimize(_this.container,_this.ratingType);
     };
     _this.showCenter = function () {
         if (_this.isCentered) {
@@ -178,7 +178,7 @@ function Gallery_Img_Lightbox_Gallery(id) {
                         _this.loadMoreBtn.hide();
                     }
                     galleryImglightboxInit();
-                    ratingCountsOptimize(_this.container,_this.ratingType);
+                    galleryImgRatingCountsOptimize(_this.container,_this.ratingType);
                 } else {
                     alert("no");
                 }
