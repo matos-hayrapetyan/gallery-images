@@ -22,7 +22,7 @@ if ( ! class_exists( 'Gallery_Img' ) ) :
          * Version of plugin
          * @var float
          */
-        public $version = 10.0;
+        public $version = '2.0.2';
 
         /**
          * Instance of Gallery_Img_Admin class to manage admin
@@ -89,7 +89,6 @@ if ( ! class_exists( 'Gallery_Img' ) ) :
         private function init_hooks() {
             register_activation_hook( __FILE__, array( 'Gallery_Img_Install', 'install' ) );
             add_action( 'init', array( $this, 'init' ), 0 );
-            add_action( 'init', array( 'Gallery_Img_Install', 'install_options' ), 0 );
             add_action( 'plugins_loaded', array($this,'load_plugin_textdomain') );
         }
 

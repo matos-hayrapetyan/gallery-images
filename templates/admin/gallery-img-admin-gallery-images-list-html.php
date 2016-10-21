@@ -64,9 +64,8 @@ if ( isset( $_GET['id'] ) && $_GET['id'] != '' ) {
 							<div id="img_preview">
 							<h3><?php echo __( 'Images', 'gallery-images' ); ?></h3>
 							<input type="hidden" name="imagess" id="_unique_name"/>
-							<!--<span class="wp-media-buttons-icon"></span>-->
 								<input type="hidden"  name="gallery_img_admin_image_hover_preview" value="off"/>
-								<label for="img_hover_preview">Image preview on hover
+								<label for="img_hover_preview"><?php echo __('Image preview on hover','gallery-images'); ?>
 									<input type="checkbox" id="img_hover_preview" name="gallery_img_admin_image_hover_preview"
 									       value="on" <?php if ( $gallery_img_get_default_options['gallery_img_admin_image_hover_preview'] == 'on' )
 										echo 'checked' ?>>

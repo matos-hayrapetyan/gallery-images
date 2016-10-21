@@ -5,6 +5,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Gallery_Img_Install {
 
+	public static function init() {
+		add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
+	}
+	/**
+	 * Check Gallery Image version and run the updater is required.
+	 *
+	 * This check is done on all requests and runs if the versions do not match.
+	 */
+	public static function check_version() {
+		if(get_option( 'gallery_img_version' ) !== GALLERY_IMG()->version ){
+			self::install_options();
+			update_option( 'gallery_img_version',GALLERY_IMG()->version );
+		}
+	}
+
 	/**
 	 * Install  Gallery Image.
 	 */
@@ -34,7 +49,8 @@ class Gallery_Img_Install {
 			'light_box_maxwidth'                    => '900',
 			'light_box_maxheight'                   => '700',
 			'light_box_initialwidth'                => '300',
-			'light_box_initialheight'               => '100'
+			'light_box_initialheight'               => '100',
+			'gallery_img_version'                   => '2.0.2'
 		);
 		if ( ! get_option( 'light_box_initialheight' ) ) {
 			foreach ( $new_options as $name => $new_option ) {
@@ -199,3 +215,5 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
 		}
 	}
 }
+
+Gallery_Img_Install::init();

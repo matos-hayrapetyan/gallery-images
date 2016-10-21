@@ -377,7 +377,8 @@ function gallery_img_get_option(){
 		'light_box_maxwidth'                    => '900',
 		'light_box_maxheight'                   => '700',
 		'light_box_initialwidth'                => '300',
-		'light_box_initialheight'               => '100'
+		'light_box_initialheight'               => '100',
+		'gallery_img_version'                   => '2.0.2'
 	);
 	$gallery_img_get_option = array();
 	foreach ($new_options as $name => $new_option){
