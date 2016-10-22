@@ -15,7 +15,7 @@ class Gallery_Img_Install {
 	 */
 	public static function check_version() {
 		if(get_option( 'gallery_img_version' ) !== Gallery_Img()->version ){
-			self::install_options();
+			self::install();
 			update_option( 'gallery_img_version',Gallery_Img()->version );
 		}
 	}
@@ -28,8 +28,7 @@ class Gallery_Img_Install {
 			define( 'GALLERY_IMG_INSTALLING', true );
 		}
 		self::create_tables();
-		// Flush rules after install
-		flush_rewrite_rules();
+        self::install_options();
 		// Trigger action
 		do_action( 'gallery_img_installed' );
 	}
