@@ -25,9 +25,9 @@ jQuery(document).ready(function () {
 		clearTimeout(setTimeoutConst);
 		jQuery('#gallery-image-zoom').fadeOut('3000');
 	});
-	jQuery('ul#images-list > li > .image-container .list-img-wrapper img').on('load',function(){
+	setTimeout(function () {
 		galleryImgResizeAdminImages();
-	});
+	},200);
     jQuery('.huge-it-editnewuploader .button-edit').click(function(e) {
         var send_attachment_bkp = wp.media.editor.send.attachment;
         var button = jQuery(this);
