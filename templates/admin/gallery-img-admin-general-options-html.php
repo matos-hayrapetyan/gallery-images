@@ -6,11 +6,15 @@ if (!defined('ABSPATH')) {
 
 <div class="wrap">
     <?php require(GALLERY_IMG_TEMPLATES_PATH.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'gallery-img-admin-free-banner.php');?>
+    <p class="pro_info">
+        <?php echo __('These features are available in the Professional version of the plugin only.', 'gallery-images'); ?>
+        <a href="http://huge-it.com/wordpress-gallery/" target="_blank" class="button button-primary"><?php echo __('Enable','gallery-images'); ?></a>
+    </p>
     <div>
         <div id="poststuff">
             <div id="post-body-content" class="gallery-options">
                 <div id="post-body-heading">
-                    <h3><?php echo __('General Options', 'gallery-images'); ?></h3>
+                    <h3 id="gen_option_title"><?php echo __('General Options', 'gallery-images'); ?></h3>
                     <a class="save-gallery-options button-primary"><?php echo __('Save', 'gallery-images'); ?></a>
                 </div>
 
@@ -34,6 +38,7 @@ if (!defined('ABSPATH')) {
                         </li>
                     </ul>
                     <ul class="options-block" id="gallery-view-tabs-contents">
+                        <div class="gallery_options_grey_overlay"></div>
                         <li class="gallery-view-options-0">
                             <img style="width: 100%;margin-top: -12px;"
                                  src='<?php echo GALLERY_IMG_IMAGES_URL . '/admin_images/popup-tab-1.png'; ?>'>

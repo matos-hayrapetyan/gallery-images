@@ -12,6 +12,7 @@ function Gallery_Img_Content_Slider(id) {
     _this.slideDuration = +_this.container.data("slide-duration");
     _this.slideInterval = +_this.container.data("slide-interval");
     _this.ratingType = _this.container.data("rating-type");
+    _this.timeArrowsClick;
     _this.sliderOptons = {
         autoSlide: _this.autoSlide,
         pauseOnHover: _this.pauseHover,
@@ -20,10 +21,23 @@ function Gallery_Img_Content_Slider(id) {
     };
     _this.documentReady = function () {
         _this.container.liquidSlider(_this.sliderOptons);
-        ratingCountsOptimize(_this.container,_this.ratingType);
+        galleryImgRatingCountsOptimize(_this.container,_this.ratingType);
+    };
+    _this.addEventListeners = function () {
+        if(_this.autoSlide) {
+            jQuery('body').on('click', '.ls-nav-left-arrow,.ls-nav-right-arrow', _this.autoslide);
+        }
+    };
+    _this.autoslide = function(){
+        clearTimeout(_this.timeArrowsClick);
+        var api = jQuery.data( document.querySelector('#' + id + '.g-main-slider.liquid-slider'), 'liquidSlider');
+        _this.timeArrowsClick = setTimeout(function(){
+            api.startAutoSlide();
+        },_this.slideInterval);
     };
     _this.init = function () {
         _this.documentReady();
+        _this.addEventListeners();
     };
     this.init();
 }

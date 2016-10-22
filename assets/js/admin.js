@@ -6,6 +6,28 @@ var  name_changeTop = function(e) {
 };
 
 jQuery(document).ready(function () {
+	galleryImgPopupSizes(jQuery('#light_box_size_fix'));
+	jQuery('#light_box_size_fix').change(function(){
+		galleryImgPopupSizes(jQuery(this));
+	});
+	var setTimeoutConst;
+	jQuery('ul#images-list > li > .image-container img').on('mouseenter',function () {
+		var onHoverPreview = jQuery('#img_hover_preview').prop('checked');
+		if(onHoverPreview == true) {
+			var imgSrc = jQuery(this).attr('src');
+			jQuery('#gallery-image-zoom img').attr('src', imgSrc);
+			setTimeoutConst = setTimeout(function () {
+				jQuery('#gallery-image-zoom').fadeIn('3000');
+			}, 500);
+		}
+	});
+	jQuery('ul#images-list > li > .image-container img').on('mouseout',function () {
+		clearTimeout(setTimeoutConst);
+		jQuery('#gallery-image-zoom').fadeOut('3000');
+	});
+	setTimeout(function () {
+		galleryImgResizeAdminImages();
+	},200);
     jQuery('.huge-it-editnewuploader .button-edit').click(function(e) {
         var send_attachment_bkp = wp.media.editor.send.attachment;
         var button = jQuery(this);
@@ -17,7 +39,7 @@ jQuery(document).ready(function () {
                 jQuery("#save-buttom").click();
             } else {
                 return _orig_send_attachment.apply( this, [props, attachment] );
-            };
+            }
         };
 
         wp.media.editor.open(button);
@@ -29,7 +51,7 @@ jQuery(document).ready(function () {
         var imageId = jQuery(this).data('image-id');
 		var removeNonce = jQuery(this).data('nonce-value');
         jQuery('#adminForm').attr('action', 'admin.php?page=galleries_huge_it_gallery&task=edit_cat&id='+galleryId+'&removeslide='+imageId+'&gallery_nonce_remove_image='+removeNonce);
-        submitbutton('apply');
+        galleryImgSubmitbutton('apply');
     });
 	jQuery(".wp-media-buttons-icon").click(function() {
 		jQuery(".attachment-filters").css("display","none");
@@ -204,31 +226,27 @@ jQuery(document).ready(function () {
 		jQuery('#gallery-current-options-'+jQuery(this).val()).addClass('active');
 	});
 
-	jQuery(".close_free_banner").on("click",function(){
-		jQuery(".free_version_banner").css("display","none");
-		hgSliderSetCookie( 'hgSliderFreeBannerShow', 'no', {expires:3600} );
+	jQuery(".close_gallery_free_banner").on("click",function(){
+		jQuery(".gallery_free_version_banner").css("display","none");
+		galleryImgSetCookie( 'hgGalleryFreeBannerShow', 'no', {expires:86400} );
 	});
 	
 	jQuery('.huge-it-insert-video-button').click(function(){
 		alert("Image Gallery Settings are disabled in free version. If you need those functionalityes, you need to buy the commercial version.");
 		return false;
 	});
-	jQuery('a[href*="remove_cat"]').click(function(){
+	jQuery('a[href*="remove_gallery"]').click(function(){
 		if(!confirm('Are you sure you want to delete this item?'))
 			return false;
 	});
 	
 });
 
-/* Cookies */
-function hgSliderGetCookie(name) {
-	var matches = document.cookie.match(new RegExp(
-		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-	));
-	return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+jQuery(window).resize(function () {
+	galleryImgResizeAdminImages();
+});
 
-function hgSliderSetCookie(name, value, options) {
+function galleryImgSetCookie(name, value, options) {
 	options = options || {};
 
 	var expires = options.expires;
@@ -259,14 +277,7 @@ function hgSliderSetCookie(name, value, options) {
 
 	document.cookie = updatedCookie;
 }
-
-function hgSliderDeleteCookie(name) {
-	setCookie(name, "", {
-		expires: -1
-	})
-};
-
-function filterInputs() {
+function galleryImgFilterInputs() {
 	var mainInputs = "";
 	jQuery("#images-list > li.highlights").each(function(){
 		jQuery(this).next().addClass('submit-post');
@@ -297,50 +308,67 @@ function filterInputs() {
 		jQuery(this).find('select').removeAttr('name');
 	});
 };
-
-function submitbutton(pressbutton){
-	if(!document.getElementById('name').value){
+function galleryImgSubmitbutton(pressbutton) {
+	if (!document.getElementById('name').value) {
 		alert("Name is required.");
 		return;
 	}
-	filterInputs();
-	document.getElementById("adminForm").action=document.getElementById("adminForm").action+"&task="+pressbutton;
+	galleryImgFilterInputs();
+	document.getElementById("adminForm").action = document.getElementById("adminForm").action + "&task=" + pressbutton;
 	document.getElementById("adminForm").submit();
 }
-function change_select(){
-	submitbutton('apply');
-}
-function ordering(name,as_or_desc)
-{
-	document.getElementById('asc_or_desc').value=as_or_desc;
-	document.getElementById('order_by').value=name;
-	document.getElementById('admin_form').submit();
-}
-function saveorder()
-{
-	document.getElementById('saveorder').value="save";
-	document.getElementById('admin_form').submit();
-
-}
-function listItemTask(this_id,replace_id)
-{
+function galleryImgListItemTask(this_id,replace_id){
 	document.getElementById('oreder_move').value=this_id+","+replace_id;
 	document.getElementById('admin_form').submit();
 }
-function doNothing() {
+function galleryImgDoNothing() {
 	var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
 	if( keyCode == 13 ) {
-
-
 		if(!e) var e = window.event;
-
 		e.cancelBubble = true;
 		e.returnValue = false;
-
 		if (e.stopPropagation) {
 			e.stopPropagation();
 			e.preventDefault();
 		}
+	}
+}
+function galleryImgResizeAdminImages(){
+	jQuery('ul#images-list > li > .image-container .list-img-wrapper img').each(function () {
+		var imhHeight = jQuery(this).prop('naturalHeight');
+		var imhWidth = jQuery(this).prop('naturalWidth');
+		var parentWidth = jQuery(this).parent().width();
+		var parentHeight = jQuery(this).parent().height();
+		var imgRatio = imhWidth/imhHeight;
+		var parentRatio = parentWidth/parentHeight;
+		if (imgRatio <= parentRatio) {
+			jQuery(this).css({
+				position: "relative",
+				width: '100%',
+				top: '50%',
+				transform: 'translateY(-50%)',
+				height: 'auto',
+				left: '0'
+			});
+		} else {
+			jQuery(this).css({
+				position: "relative",
+				height: '100%',
+				left: '50%',
+				transform: 'translateX(-50%)',
+				width: 'auto',
+				top: '0'
+			});
+		}
+	});
+}
+function galleryImgPopupSizes(checkbox){
+	if(checkbox.is(':checked')){
+		jQuery('.lightbox-options-block .not-fixed-size').css({'display':'none'});
+		jQuery('.lightbox-options-block .fixed-size').css({'display':'block'});
+	}else {
+		jQuery('.lightbox-options-block .fixed-size').css({'display':'none'});
+		jQuery('.lightbox-options-block .not-fixed-size').css({'display':'block'});
 	}
 }
 

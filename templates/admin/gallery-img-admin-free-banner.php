@@ -3,8 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 ?>
-<div class="free_version_banner" <?php if( isset($_COOKIE['hgSliderFreeBannerShow']) && isset($_COOKIE['hgSliderFreeBannerShow']) == "no" ){ echo 'style="display:none"'; } ?> >
-    <a class="close_free_banner">+</a>
+<div class="gallery_free_version_banner" <?php if( isset($_COOKIE['hgGalleryFreeBannerShow']) && $_COOKIE['hgGalleryFreeBannerShow'] == "no" ){ echo 'style="display:none"'; } ?> >
+    <a class="close_gallery_free_banner">+</a>
     <img class="manual_icon" src="<?php echo GALLERY_IMG_IMAGES_URL.'/admin_images/icon-user-manual.png';?>" alt="user manual" />
     <p class="usermanual_text">If you have any difficulties in using the options, Follow the link to <a href="http://huge-it.com/wordpress-gallery-user-manual/" target="_blank">User Manual</a></p>
     <a class="get_full_version" href="http://huge-it.com/wordpress-gallery/" target="_blank">GET THE FULL VERSION</a>

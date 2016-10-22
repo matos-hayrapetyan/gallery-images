@@ -2,25 +2,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-if ( isset( $_REQUEST['huge_it_gallery_nonce'] ) ) {
-	$wp_nonce = $_REQUEST['huge_it_gallery_nonce'];
-	if ( ! wp_verify_nonce( $wp_nonce, 'huge_it_gallery_nonce' ) ) {
-		wp_die( 'Security check fail' );
-	}
-}
 global $wpdb;
 $gallery_wp_nonce = wp_create_nonce( 'huge_it_gallery_nonce' );
 if ( isset( $_GET['id'] ) && $_GET['id'] != '' ) {
 	$id = intval( $_GET['id'] );
+	$gallery_img_get_default_options = gallery_img_get_option();
 }
 
-if ( isset( $_GET["addslide"] ) ) {
-	if ( $_GET["addslide"] == 1 ) {
-		header( 'Location: admin.php?page=galleries_huge_it_gallery&id=' . $row->id . '&task=apply' );
-	}
-}
 ?>
-<!-- GENERAL PAGE, ADD IMAGES PAGE -->
+<div id="gallery-image-zoom">
+	<img src=""/>
+</div>
 <div class="wrap">
 	<?php require( GALLERY_IMG_TEMPLATES_PATH . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'gallery-img-admin-free-banner.php' ); ?>
 	<?php $path_site = plugins_url( "../images", __FILE__ ); ?>
@@ -69,18 +61,26 @@ if ( isset( $_GET["addslide"] ) ) {
 
 					<div id="post-body">
 						<div id="post-body-heading">
+							<div id="img_preview">
 							<h3><?php echo __( 'Images', 'gallery-images' ); ?></h3>
 							<input type="hidden" name="imagess" id="_unique_name"/>
-							<span class="wp-media-buttons-icon"></span>
-							<div class="huge-it-newuploader uploader button button-primary add-new-image">
-								<input type="button" class="button wp-media-buttons-icon" name="_unique_name_button"
+								<input type="hidden"  name="gallery_img_admin_image_hover_preview" value="off"/>
+								<label for="img_hover_preview"><?php echo __('Image preview on hover','gallery-images'); ?>
+									<input type="checkbox" id="img_hover_preview" name="gallery_img_admin_image_hover_preview"
+									       value="on" <?php if ( $gallery_img_get_default_options['gallery_img_admin_image_hover_preview'] == 'on' )
+										echo 'checked' ?>>
+								</label>
+							</div>
+							<div class="huge-it-newuploader uploader add-new-image">
+								<input type="button" class="button wp-media-buttons-icon button-primary" name="_unique_name_button"
 								       id="_unique_name_button" value="Add Image"/>
 							</div>
 
-							<a href="admin.php?page=galleries_huge_it_gallery&task=gallery_video&id=<?php echo $id; ?>&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce; ?>&TB_iframe=1"
+							<a href="#TB_inline?&inlineId=huge_it_gallery_add_videos&width=700&height=500"
 							   class="button button-primary add-video-slide thickbox" id="slideup3s" value="iframepop">
 								<span
 									class="wp-media-buttons-icon"></span><?php echo __( 'Add Video', 'gallery-images' ); ?>
+								</span>
 							</a>
 						</div>
 						<ul id="images-list">
@@ -89,7 +89,7 @@ if ( isset( $_GET["addslide"] ) ) {
 							$i = 2;
 							foreach ( $rowim as $key => $rowimages ) { ?>
 								<?php if ( $rowimages->sl_type == '' ) {
-									$rowimages->sl_type         = 'image';
+									$rowimages->sl_type = 'image';
 								}
 								$gallery_nonce_remove_image = wp_create_nonce( 'gallery_nonce_remove_image' . $rowimages->id );
 								switch ( $rowimages->sl_type ) {
@@ -102,7 +102,9 @@ if ( isset( $_GET["addslide"] ) ) {
 											       name="order_by_<?php echo $rowimages->id; ?>"
 											       value="<?php echo $rowimages->ordering; ?>"/>
 											<div class="image-container">
-												<img src="<?php echo $rowimages->image_url; ?>"/>
+												<div class="list-img-wrapper">
+													<img src="<?php echo $rowimages->image_url; ?>"/>
+												</div>
 												<div>
 													<input type="hidden" name="imagess<?php echo $rowimages->id; ?>"
 													       id="_unique_name<?php echo $rowimages->id; ?>"
@@ -120,24 +122,18 @@ if ( isset( $_GET["addslide"] ) ) {
 											</div>
 											<div class="image-options">
 												<div>
-													<label
-														for="titleimage<?php echo $rowimages->id; ?>"><?php echo __( 'Title:', 'gallery-images' ); ?></label>
-													<input class="text_area" type="text"
+													<input class="text_area" type="text" placeholder="<?php echo __( 'Title:', 'gallery-img' ); ?>"
 													       id="titleimage<?php echo $rowimages->id; ?>"
 													       name="titleimage<?php echo $rowimages->id; ?>"
 													       id="titleimage<?php echo $rowimages->id; ?>"
 													       value="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $rowimages->name ) ); ?>">
 												</div>
 												<div class="description-block">
-													<label
-														for="im_description<?php echo $rowimages->id; ?>"><?php echo __( 'Description:', 'gallery-images' ); ?></label>
-													<textarea id="im_description<?php echo $rowimages->id; ?>"
+													<textarea id="im_description<?php echo $rowimages->id; ?>" placeholder="<?php echo __( 'Description:', 'gallery-img' ); ?>"
 													          name="im_description<?php echo $rowimages->id; ?>"><?php echo str_replace( '__5_5_5__', '%', $rowimages->description ) ?></textarea>
 												</div>
 												<div class="link-block">
-													<label
-														for="sl_url<?php echo $rowimages->id; ?>"><?php echo __( 'URL:', 'gallery-images' ); ?></label>
-													<input class="text_area url-input" type="text"
+													<input class="text_area url-input" type="text" placeholder="<?php echo __( 'URL:', 'gallery-images' ); ?>"
 													       id="sl_url<?php echo $rowimages->id; ?>"
 													       name="sl_url<?php echo $rowimages->id; ?>"
 													       value="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $rowimages->sl_url ) ); ?>">
@@ -592,11 +588,10 @@ if ( isset( $_GET["addslide"] ) ) {
 							</ul>
 							<div id="major-publishing-actions">
 								<div id="publishing-action">
-									<input type="button" onclick="submitbutton('apply')" value="Save gallery"
+									<input type="button" onclick="galleryImgSubmitbutton('apply')" value="Save gallery"
 									       id="save-buttom" class="button button-primary button-large">
 								</div>
 								<div class="clear"></div>
-								<!--<input type="button" onclick="window.location.href='admin.php?page=galleries_huge_it_gallery'" value="Cancel" class="button-secondary action">-->
 							</div>
 						</div>
 						<div id="gallery-shortcode-box" class="postbox shortcode ms-toggle">
@@ -607,14 +602,12 @@ if ( isset( $_GET["addslide"] ) ) {
 										<h4><?php echo __( 'Shortcode', 'gallery-images' ); ?></h4>
 										<p><?php echo __( 'Copy &amp; paste the shortcode directly into any WordPress post or page.', 'gallery-images' ); ?></p>
 										<textarea class="full"
-										          readonly="readonly">[huge_it_gallery id="<?php echo $row->id; ?>
-											"]</textarea>
+										          readonly="readonly">[huge_it_gallery id="<?php echo $row->id; ?>"]</textarea>
 									</li>
 									<li rel="tab-2">
 										<h4><?php echo __( 'Template Include', 'gallery-images' ); ?></h4>
 										<p><?php echo __( 'Copy &amp; paste this code into a template file to include the slideshow within your theme.', 'gallery-images' ); ?></p>
-										<textarea class="full" readonly="readonly">&lt;?php echo do_shortcode("[huge_it_gallery id='<?php echo $row->id; ?>
-											']"); ?&gt;</textarea>
+										<textarea class="full" readonly="readonly">&lt;?php echo do_shortcode("[huge_it_gallery id='<?php echo $row->id; ?>']"); ?&gt;</textarea>
 									</li>
 								</ul>
 							</div>
@@ -627,3 +620,6 @@ if ( isset( $_GET["addslide"] ) ) {
 		<input type="hidden" name="task" value=""/>
 	</form>
 </div>
+<?php
+require_once( GALLERY_IMG_TEMPLATES_PATH . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'gallery-img-admin-video-add-html.php' );
+?>
