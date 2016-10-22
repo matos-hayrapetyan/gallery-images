@@ -76,10 +76,11 @@ if ( isset( $_GET['id'] ) && $_GET['id'] != '' ) {
 								       id="_unique_name_button" value="Add Image"/>
 							</div>
 
-							<a href="admin.php?page=galleries_huge_it_gallery&task=gallery_video&id=<?php echo $id; ?>&huge_it_gallery_nonce=<?php echo $gallery_wp_nonce; ?>&TB_iframe=1"
+							<a href="#TB_inline?&inlineId=huge_it_gallery_add_videos&width=700&height=500"
 							   class="button button-primary add-video-slide thickbox" id="slideup3s" value="iframepop">
 								<span
 									class="wp-media-buttons-icon"></span><?php echo __( 'Add Video', 'gallery-images' ); ?>
+								</span>
 							</a>
 						</div>
 						<ul id="images-list">
@@ -591,7 +592,6 @@ if ( isset( $_GET['id'] ) && $_GET['id'] != '' ) {
 									       id="save-buttom" class="button button-primary button-large">
 								</div>
 								<div class="clear"></div>
-								<!--<input type="button" onclick="window.location.href='admin.php?page=galleries_huge_it_gallery'" value="Cancel" class="button-secondary action">-->
 							</div>
 						</div>
 						<div id="gallery-shortcode-box" class="postbox shortcode ms-toggle">
@@ -620,3 +620,6 @@ if ( isset( $_GET['id'] ) && $_GET['id'] != '' ) {
 		<input type="hidden" name="task" value=""/>
 	</form>
 </div>
+<?php
+require_once( GALLERY_IMG_TEMPLATES_PATH . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'gallery-img-admin-video-add-html.php' );
+?>

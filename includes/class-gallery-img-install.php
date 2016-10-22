@@ -14,9 +14,9 @@ class Gallery_Img_Install {
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		if(get_option( 'gallery_img_version' ) !== GALLERY_IMG()->version ){
+		if(get_option( 'gallery_img_version' ) !== Gallery_Img()->version ){
 			self::install_options();
-			update_option( 'gallery_img_version',GALLERY_IMG()->version );
+			update_option( 'gallery_img_version',Gallery_Img()->version );
 		}
 	}
 

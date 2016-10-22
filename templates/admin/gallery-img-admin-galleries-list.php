@@ -126,7 +126,7 @@ $huge_it_gallery_nonce_galleries = wp_create_nonce( 'huge_it_gallery_nonce_galle
 						}
 
 						$huge_it_gallery_nonce_remove_gallery = wp_create_nonce( 'huge_it_gallery_nonce_remove_gallery' . $rows[ $i ]->id );
-						$huge_it_gallery_nonce_duplicate_gallery = wp_create_nonce('huge_it_gallery_nonce_remove_gallery'.$rows[$i]->id);
+						$huge_it_gallery_nonce_duplicate_gallery = wp_create_nonce('huge_it_gallery_nonce_duplicate_gallery'.$rows[$i]->id);
 						?>
 						<tr <?php if ( $trcount % 2 == 0 ) {
 							echo 'class="has-background"';
@@ -144,7 +144,7 @@ $huge_it_gallery_nonce_galleries = wp_create_nonce( 'huge_it_gallery_nonce_galle
 							<td>
 								<a href="admin.php?page=galleries_huge_it_gallery&task=duplicate_gallery_image&id=<?php echo $rows[ $i ]->id; ?>&gallery_duplicate_nonce=<?php echo $huge_it_gallery_nonce_duplicate_gallery; ?>" class="duplicate-link"><span class="duplicate-icon"></span></a>
 							<td>
-								<a href="admin.php?page=galleries_huge_it_gallery&task=remove_cat&id=<?php echo $rows[ $i ]->id; ?>&huge_it_gallery_nonce_remove_gallery=<?php echo $huge_it_gallery_nonce_remove_gallery; ?>" class="delete-link" ><span class="delete-icon"></span></a>
+								<a href="admin.php?page=galleries_huge_it_gallery&task=remove_gallery&id=<?php echo $rows[ $i ]->id; ?>&huge_it_gallery_nonce_remove_gallery=<?php echo $huge_it_gallery_nonce_remove_gallery; ?>" class="delete-link" ><span class="delete-icon"></span></a>
 							</td>
 						</tr>
 					<?php } ?>

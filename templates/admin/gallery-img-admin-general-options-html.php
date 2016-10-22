@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
         <div id="poststuff">
             <div id="post-body-content" class="gallery-options">
                 <div id="post-body-heading">
-                    <h3><?php echo __('General Options', 'gallery-images'); ?></h3>
+                    <h3 id="gen_option_title"><?php echo __('General Options', 'gallery-images'); ?></h3>
                     <a class="save-gallery-options button-primary"><?php echo __('Save', 'gallery-images'); ?></a>
                 </div>
 

@@ -233,8 +233,12 @@ a.delete-link {
 }
 
 #post-body-heading h3 {
+    float: none;
     margin: -5px 0 0 5px !important;
     padding: 0;
+}
+#gen_option_title{
+    float: left !important;
 }
 
 #post-body-heading .button, #post-body-heading .save-gallery-options {

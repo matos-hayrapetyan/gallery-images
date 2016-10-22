@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     <?php require(GALLERY_IMG_TEMPLATES_PATH . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'gallery-img-admin-free-banner.php'); ?>
     <div style="clear:both;"></div>
     <div id="post-body-heading">
-        <h3><?php echo __( 'Lightbox Options', 'gallery-img' ); ?></h3>
+        <h3 id="gen_option_title"><?php echo __( 'Lightbox Options', 'gallery-img' ); ?></h3>
         <a onclick="document.getElementById('adminForm').submit()"
            class="save-gallery-options button-primary"><?php echo __( 'Save', 'gallery-img' ); ?></a>
     </div>

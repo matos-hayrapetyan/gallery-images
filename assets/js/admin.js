@@ -25,7 +25,7 @@ jQuery(document).ready(function () {
 		clearTimeout(setTimeoutConst);
 		jQuery('#gallery-image-zoom').fadeOut('3000');
 	});
-	setTimeout(function () {
+	jQuery('ul#images-list > li > .image-container .list-img-wrapper img').on('load',function(){
 		galleryImgResizeAdminImages();
 	});
     jQuery('.huge-it-editnewuploader .button-edit').click(function(e) {
@@ -235,7 +235,7 @@ jQuery(document).ready(function () {
 		alert("Image Gallery Settings are disabled in free version. If you need those functionalityes, you need to buy the commercial version.");
 		return false;
 	});
-	jQuery('a[href*="remove_cat"]').click(function(){
+	jQuery('a[href*="remove_gallery"]').click(function(){
 		if(!confirm('Are you sure you want to delete this item?'))
 			return false;
 	});
