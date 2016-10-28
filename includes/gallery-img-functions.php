@@ -447,6 +447,8 @@ function gallery_img_get_image_id($image_url)
 function gallery_img_get_image_by_sizes_and_src($image_src, $image_sizes, $is_thumbnail)
 {
     $is_attachment = gallery_img_get_image_id($image_src);
+    $img_sizes = getimagesize($image_src);
+    $img_height = $img_sizes[1];
 
     if (is_string($image_sizes)) {
         $image_sizes = $image_sizes;
@@ -464,10 +466,17 @@ function gallery_img_get_image_by_sizes_and_src($image_src, $image_sizes, $is_th
         $natural_img_width = $natural_img_width[1];
         $natural_img_width = str_replace(' ', '', $natural_img_width);
         $natural_img_width = intval(str_replace('px', '', $natural_img_width));
-        if ($image_sizes[0] <= 400  || $image_sizes[0] == '') {
-            $image_url = wp_get_attachment_image_url($attachment_id, 'medium');
+        if ($is_thumbnail) {
+            $image_url = wp_get_attachment_image_url($attachment_id, 'thumbnail');
+        } elseif ($image_sizes[0] <= 300 || $image_sizes[0] == '' ) {
+            if( $img_height <=  $natural_img_width)
+                $image_url = wp_get_attachment_image_url( $attachment_id, 'medium' );
+            else
+                $image_url = wp_get_attachment_image_url( $attachment_id, 'large' );
         }
-        elseif ($image_sizes[0] >= $natural_img_width) {
+        elseif($image_sizes[0] <= 700){
+            $image_url = wp_get_attachment_image_url( $attachment_id, 'large' );
+        } elseif ($image_sizes[0] >= $natural_img_width) {
             $image_url = wp_get_attachment_image_url($attachment_id, 'full');
         } else {
             $image_url = wp_get_attachment_image_url($attachment_id, $image_sizes);
