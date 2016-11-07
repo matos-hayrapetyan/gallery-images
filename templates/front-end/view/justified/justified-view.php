@@ -68,9 +68,9 @@
 					?>
 					<?php if ( $row->image_url != ';' ) { ?>
 					<a class="gallery_group<?php echo $galleryID; ?>" href="<?php echo $imgurl[0]; ?>"
-					   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>">
+					   title="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>">
 						<img id="wd-cl-img<?php echo $key; ?>"
-						     alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+						     alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 						     src="<?php echo esc_url( gallery_img_get_image_by_sizes_and_src( $imgurl[0], array(
 							     '',
 							     $gallery_default_params[ 'ht_view8_element_height' ]
@@ -129,7 +129,7 @@
 					</a>
 					<input type="hidden" class="pagenum" value="1"/>
 				<?php } else { ?>
-					<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+					<img alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 					     id="wd-cl-img<?php echo $key; ?>"
 					     src="images/noimage.jpg"/>
 					<?php if ( $like_dislike != 'off' ): ?>
@@ -193,10 +193,10 @@
 						?>
 						<a class="giyoutube huge_it_gallery_item gallery_group<?php echo $galleryID; ?>"
 						   href="https://www.youtube.com/embed/<?php echo $videourl[0]; ?>"
-						   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>">
-							<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+						   title="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>">
+							<img alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 							     src="http://img.youtube.com/vi/<?php echo $videourl[0]; ?>/mqdefault.jpg"
-							     alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"/>
+							     alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"/>
 							<div class="play-icon <?php echo $videourl[1]; ?>-icon"></div>
 							<?php if ( $like_dislike != 'off' ): ?>
 								<div class="huge_it_gallery_like_cont_<?php echo $galleryID . $pID; ?>">
@@ -259,10 +259,10 @@
 						?>
 						<a class="givimeo huge_it_gallery_item gallery_group<?php echo $galleryID; ?>"
 						   href="http://player.vimeo.com/video/<?php echo $videourl[0]; ?>"
-						   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>">
-							<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+						   title="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>">
+							<img alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 							     src="<?php echo esc_attr( $imgsrc ); ?>"
-							     alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"/>
+							     alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"/>
 							<div class="play-icon <?php echo $videourl[1]; ?>-icon"></div>
 							<?php if ( $like_dislike != 'off' ): ?>
 								<div class="huge_it_gallery_like_cont_<?php echo $galleryID . $pID; ?>">

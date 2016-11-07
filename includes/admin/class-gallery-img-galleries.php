@@ -266,7 +266,7 @@ INSERT INTO
 				$orderBy   = sanitize_text_field( $_POST[ "order_by_" . $rowimages->id ] );
 				$linkTaret = sanitize_text_field( $_POST[ "sl_link_target" . $rowimages->id ] );
 				$slUrl     = sanitize_text_field( str_replace( '%', '__5_5_5__', $_POST[ "sl_url" . $rowimages->id ] ) );
-				$name      = wp_unslash( str_replace( '%', '__5_5_5__', $_POST[ "titleimage" . $rowimages->id ] ) );
+				$name      = wp_kses( wp_unslash( str_replace( '%', '__5_5_5__', $_POST[ "titleimage" . $rowimages->id ] ) ), 'default');
 				$desc      = wp_unslash( str_replace( '%', '__5_5_5__', $_POST[ "im_description" . $rowimages->id ] ) );
 				$imageUrl  = sanitize_text_field( $_POST[ "imagess" . $rowimages->id ] );
 				$like      = sanitize_text_field( $_POST[ "like_" . $rowimages->id ] );
