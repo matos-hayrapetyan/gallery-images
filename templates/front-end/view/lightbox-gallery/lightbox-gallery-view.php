@@ -64,7 +64,7 @@
 				$result     = substr( $descnohtml, 0, 50 );
 				?>
 				<div class="element element_<?php echo $galleryID; ?>" tabindex="0" data-symbol="<?php echo
-				str_replace( '__5_5_5__', '%', $row->name ); ?>" data-category="alkaline-earth">
+				esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>" data-category="alkaline-earth">
 					<div class="image-block_<?php echo $galleryID; ?>">
 						<?php
 						$imagerowstype = $row->sl_type;
@@ -77,10 +77,10 @@
 								<?php $imgurl = explode( ";", $row->image_url ); ?>
 								<?php if ( $row->image_url != ';' ) { ?>
 								<a href="<?php echo $imgurl[0]; ?>"
-								   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"><img
-										alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+								   title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"><img
+										alt="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 										id="wd-cl-img<?php echo $key; ?>"
-										title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+										title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 										src="<?php echo esc_url( gallery_img_get_image_by_sizes_and_src(
 											$imgurl[0], array(
 											$gallery_default_params[ 'ht_view6_width' ],
@@ -102,8 +102,8 @@
 									?>
 									<a class="giyoutube huge_it_gallery_item gallery_group<?php echo $galleryID; ?>"
 									   href="https://www.youtube.com/embed/<?php echo $videourl[0]; ?>"
-									   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>">
-										<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+									   title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>">
+										<img alt="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 										     src="http://img.youtube.com/vi/<?php echo $videourl[0]; ?>/mqdefault.jpg"/>
 										<div class="play-icon <?php echo $videourl[1]; ?>-icon"></div>
 									</a>
@@ -114,8 +114,8 @@
 									?>
 									<a class="givimeo huge_it_gallery_item gallery_group<?php echo $galleryID; ?>"
 									   href="http://player.vimeo.com/video/<?php echo $videourl[0]; ?>"
-									   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>">
-										<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+									   title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>">
+										<img alt="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 										     src="<?php echo esc_attr( $imgsrc ); ?>"/>
 										<div class="play-icon <?php echo $videourl[1]; ?>-icon"></div>
 									</a>

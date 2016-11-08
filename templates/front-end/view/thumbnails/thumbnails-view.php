@@ -119,13 +119,13 @@
 					case 'image':
 						?>
 						<a class="gallery_group<?php echo $galleryID; ?>" href="<?php echo $row->image_url; ?>"
-						   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"></a>
+						   title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"></a>
 						<img
 							src="<?php echo esc_url( gallery_img_get_image_by_sizes_and_src( $row->image_url, array(
 								$gallery_default_params[ 'thumb_image_width' ],
 								$gallery_default_params[ 'thumb_image_height' ]
 							), false ) ); ?>"
-							alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"/>
+							alt="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"/>
 						<?php
 						break;
 					case 'video':
@@ -136,8 +136,8 @@
 							?>
 							<a class="giyoutube huge_it_gallery_item gallery_group<?php echo $galleryID; ?>"
 							   href="https://www.youtube.com/embed/<?php echo $videourl[0]; ?>"
-							   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"></a>
-							<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+							   title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"></a>
+							<img alt="<?php echo esc_attr(  str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 							     src="http://img.youtube.com/vi/<?php echo $videourl[0]; ?>/mqdefault.jpg"/>
 							<?php
 						} else {
@@ -146,8 +146,8 @@
 							?>
 							<a class="givimeo huge_it_gallery_item gallery_group<?php echo $galleryID; ?>"
 							   href="http://player.vimeo.com/video/<?php echo $videourl[0]; ?>"
-							   title="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"></a>
-							<img alt="<?php echo str_replace( '__5_5_5__', '%', $row->name ); ?>"
+							   title="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"></a>
+							<img alt="<?php echo esc_attr( str_replace( '__5_5_5__', '%', $row->name ) ); ?>"
 							     src="<?php echo $imgsrc; ?>"/>
 							<?php
 						}
