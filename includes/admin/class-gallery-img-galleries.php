@@ -10,18 +10,15 @@ class Gallery_Img_Galleries {
 	 */
 	public function load_gallery_page() {
 		global $wpdb;
-		if ( isset( $_GET['page'] ) && $_GET['page'] == 'galleries_huge_it_gallery' ) {
-			$task = gallery_img_get_gallery_task();
-			$id   = gallery_img_get_gallery_id();
-		}
+		$task = gallery_img_get_gallery_task();
+		$id   = gallery_img_get_gallery_id();
+
 		switch ( $task ) {
 			case 'gallery_video':
-				if ( isset( $_REQUEST['gallery_wp_nonce_video'] ) ) {
-					$wp_nonce = $_GET['gallery_wp_nonce_video'];
-					if ( ! wp_verify_nonce( $wp_nonce, 'gallery_wp_nonce_video' ) ) {
-						wp_die( 'Security check fail' );
-					}
+				if ( !isset($_GET['gallery_wp_nonce_video']) || ! wp_verify_nonce( $_GET['gallery_wp_nonce_video'], 'gallery_wp_nonce_video' ) ) {
+					wp_die( 'Security check fail' );
 				}
+
 				if ( $id ) {
 					$this->insert_gallery_img_video( $id );
 				} else {
@@ -30,18 +27,10 @@ class Gallery_Img_Galleries {
 				}
 				break;
 			case 'edit_cat':
-				if ( isset( $_REQUEST['huge_it_gallery_nonce_galleries'] ) ) {
-					$wp_nonce = $_REQUEST['huge_it_gallery_nonce_galleries'];
-					if ( ! wp_verify_nonce( $wp_nonce, 'huge_it_gallery_nonce_galleries' ) ) {
-						wp_die( 'Security check fail' );
-					}
+				if ( !isset( $_REQUEST['huge_it_gallery_nonce_galleries'] ) || ! wp_verify_nonce( $_REQUEST['huge_it_gallery_nonce_galleries'], 'huge_it_gallery_nonce_galleries' ) ) {
+					wp_die( 'Security check fail' );
 				}
-				if ( isset( $_REQUEST['huge_it_gallery_nonce_images_list'] ) ) {
-					$wp_nonce = $_REQUEST['huge_it_gallery_nonce_images_list'];
-					if ( ! wp_verify_nonce( $wp_nonce, 'huge_it_gallery_nonce_images_list' ) ) {
-						wp_die( 'Security check fail' );
-					}
-				}
+
 				if ( $id ) {
 					$this->edit_gallery( $id );
 				} else {
@@ -55,12 +44,10 @@ class Gallery_Img_Galleries {
 				}
 				break;
 			case 'apply':
-				if ( isset( $_REQUEST['huge_it_gallery_nonce_save_data'] ) ) {
-					$wp_nonce = $_REQUEST['huge_it_gallery_nonce_save_data'];
-					if ( ! wp_verify_nonce( $wp_nonce, 'huge_it_gallery_nonce_save_data' ) ) {
-						wp_die( 'Security check fail' );
-					}
+				if ( !isset($_REQUEST['huge_it_gallery_nonce_save_data']) || ! wp_verify_nonce( $_REQUEST['huge_it_gallery_nonce_save_data'], 'huge_it_gallery_nonce_save_data' ) ) {
+					wp_die( 'Security check fail' );
 				}
+
 				if ( $id ) {
 					$this->save_gallery_data( $id );
 					$this->edit_gallery( $id );
@@ -137,13 +124,14 @@ GROUP BY " . $wpdb->prefix . "huge_itgallery_images.gallery_id ";
 	public function edit_gallery( $id ) {
 		if ( isset( $_GET["removeslide"] ) ) {
 			$idfordelete = esc_html( $_GET["removeslide"] );
+		}else{
+			wp_die( '"removeslider" parameter is missing.' );
 		}
-		if ( isset( $_REQUEST['gallery_nonce_remove_image'] ) ) {
-			$gallery_nonce_remove_image = $_REQUEST['gallery_nonce_remove_image'];
-			if ( ! wp_verify_nonce( $gallery_nonce_remove_image, 'gallery_nonce_remove_image' . $idfordelete ) ) {
-				wp_die( 'Security check fail' );
-			}
+
+		if ( !isset($_REQUEST['gallery_nonce_remove_image']) || ! wp_verify_nonce( $_REQUEST['gallery_nonce_remove_image'], 'gallery_nonce_remove_image' . $idfordelete ) ) {
+			wp_die( 'Security check fail' );
 		}
+
 		global $wpdb;
 		if ( isset( $_POST["huge_it_sl_effects"] ) ) {
 			if ( isset( $_GET["removeslide"] ) ) {
